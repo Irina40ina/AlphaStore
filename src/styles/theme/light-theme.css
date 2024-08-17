@@ -1,0 +1,5 @@
+.light-theme {
+    --basic-bg: white;
+
+    transition: all 0.5s ease;
+}
