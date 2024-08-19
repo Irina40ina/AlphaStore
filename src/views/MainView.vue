@@ -1,21 +1,49 @@
 <template>
     <div class="main-container">
-        <header class="header">
-            <v-btn :prepend-icon="`mdi-access-point`" :loading="true">
-                BUTTON
-            </v-btn>
-            <v-chip
-            closable
-            prepend-icon="mdi-access-point"
-            variant="outlined"
-            @click:close="console.log('CLOSE')"
-            >
-            Chip
-            </v-chip>
+        <!-- ШАПКА -->
+        <header class="header elevation-2 d-flex flex-column justify-start align-center px-5">
+            <div class="header-top d-flex justify-start align-center w-100">
+                <h1 class="logo w-25">Alpha Store</h1>        
+                <div class="search-block w-50 d-flex align-center">
+                    <v-autocomplete
+                    class="w-50"
+                    placeholder="Поиск.."
+                    variant="outlined"
+                    :rounded="'lg'"
+                    clearable
+                    hide-details
+                    :prepend-inner-icon="'mdi-magnify'"
+                    :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                    :density="'compact'"
+                    ></v-autocomplete>
+                </div>
+                <div class="action w-25 d-flex align-center justify-end ga-1">
+                    <v-switch :prepend-icon="'mdi-brightness-6'" @update:model-value="(e) => console.log(e)"></v-switch>
+                    <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-cart-outline" density="comfortable">
+                    </v-btn>
+                    <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-account" density="comfortable">
+                    </v-btn>
+                </div>
+            </div>
+            <nav class="navigation d-flex justify-start align-center w-100 px-5">
+                <ul class="nav-list d-flex align-center">
+                    <li class="nav-item">Квартира</li>
+                    <li class="nav-item">Коттедж</li>
+                    <li class="nav-item">Дом</li>
+                    <li class="nav-item">Хостел</li>
+                    <li class="nav-item">Комната</li>
+                    <li class="nav-item">Модуль</li>
+                </ul>
+            </nav>
         </header>
+        
+
+        <!-- БОКОВАЯ ПАНЕЛЬ -->
         <aside class="aside">
 
         </aside>
+
+        <!-- ОСНОВНОЙ КОНТЕНТ -->
         <main class="main">
             <div class="product-list">
                 <div class="block"></div>
@@ -90,28 +118,69 @@
 .header {
     grid-area: header;
     width: 100%;
-    min-height: 90px;
-    height: max-content;
+    height: 90px;
     position: sticky;
     top: 0;
-    border: 1px solid black;
+    padding: .1rem 0;
+    background-color: var(--basic-bg);
     z-index: 900;
+    border-radius: var(--basic-radius);
+}
+.header-top {
+    height: 70%;
+}
+.logo {
+    font-family: var(--font-preview);
+    font-weight: 600;
+    color: var(--basic-colorful-fg);
+    user-select: none;
+    cursor: pointer;
+    transition: all .7s ease;
+}
+.logo:hover {
+    color: var(--basic-colorful-hover-fg);
+    transition: all .7s ease;
+}
+.navigation {
+    height: 30%;
+}
+.nav-item {
+    position: relative;
+    top: 0;
+    background-color: var(--nav-item-bg);
+    height: 100%;
+    padding: 0 .5rem;
+    border-radius: var(--nav-item-round);
+    transition: all .7s ease;
+    user-select: none;
+    cursor: pointer;
+}
+.nav-item + .nav-item {
+    margin-left: 0.1rem;
+}
+.nav-item:hover {
+    transition: all .7s ease;
+    background-color: var(--nav-item-hover-bg);
 }
 .aside {
     grid-area: aside;
-    border: 1px solid black;
+    background-color: var(--basic-bg);
+    border-radius: var(--basic-radius);
+    box-shadow: var(--basic-shadow);
 }
 .main {
     grid-area: main;
-    border: 1px solid black;
     background-color: var(--basic-bg);
+    border-radius: var(--basic-radius);
+    box-shadow: var(--basic-shadow);
 }
 .product-list {
     width: 100%;
     display: grid;
     align-items: center;
     justify-content: center;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, 200px);
+    justify-items: center;
+    gap: 0.5rem;
 }
 </style>
