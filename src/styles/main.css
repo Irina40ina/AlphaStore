@@ -9,15 +9,15 @@
 
 :root {
     /* ОБЩИЕ ПЕРЕМЕННЫЕ */
-    --layout-bg-color-5: rgb(255, 255, 255);
-    --layout-bg-color-4: #d8fbff;
-    --layout-bg-color-3: rgb(182, 233, 255);
+    --layout-bg-color-5: rgb(243, 193, 195);
+    --layout-bg-color-4: rgb(164, 139, 196);
+    --layout-bg-color-3: rgb(167, 216, 201);
     --layout-bg-color-2: rgb(221, 245, 255);
     --layout-bg-color-1: rgb(221, 245, 255);
-    --basic-bg: white; 
+    --basic-bg: rgb(238,238,238); 
     --basic-fg: rgb(53, 53, 53);
-    --basic-colorful-fg: rgb(38, 186, 245);
-    --basic-colorful-hover-fg: rgba(97, 210, 255, 0.87);
+    --basic-colorful-fg: rgb(86,143,124);
+    --basic-colorful-hover-fg: rgba(90, 191, 157, 0.87);
 
     --basic-radius: 5px;
     --basic-shadow: 1px 1px 4px 2px rgba(34, 60, 80, 0.1);
@@ -26,8 +26,11 @@
 
     --nav-item-round: 2px;
     --nav-item-bg: var(--layout-bg-color-3);
-    --nav-item-hover-bg: rgb(120, 213, 253);
-    --icon-color: rgb(128, 217, 255);
+    --nav-item-hover-bg: rgb(144, 193, 178);
+    --icon-color: rgb(143,92,211);
+    --switch-color: rgb(143,92,211);
+    --switch-icon-color: rgb(243,142,68);
+    --input-bg: var(--layout-bg-color-3);
 }
 
 .app {
