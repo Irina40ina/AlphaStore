@@ -1,4 +1,5 @@
 @import url(./theme/index.css);
+@import url(./components/index.css);
 
 * {
     padding: 0;
@@ -14,7 +15,7 @@
     --layout-bg-color-3: rgb(167, 216, 201);
     --layout-bg-color-2: rgb(221, 245, 255);
     --layout-bg-color-1: rgb(221, 245, 255);
-    --basic-bg: rgb(238,238,238); 
+    --basic-bg: rgb(255, 255, 255); 
     --basic-fg: rgb(53, 53, 53);
     --basic-colorful-fg: rgb(86,143,124);
     --basic-colorful-hover-fg: rgba(90, 191, 157, 0.87);
@@ -25,11 +26,9 @@
     --font-preview: "Space Grotesk", sans-serif;
 
     --nav-item-round: 2px;
-    --nav-item-bg: var(--layout-bg-color-3);
+    --nav-item-bg: rgb(167, 216, 201);
     --nav-item-hover-bg: rgb(144, 193, 178);
-    --icon-color: rgb(143,92,211);
-    --switch-color: rgb(143,92,211);
-    --switch-icon-color: rgb(243,142,68);
+    --icon-color: rgb(98, 185, 159);
     --input-bg: var(--layout-bg-color-3);
 }
 
@@ -39,5 +38,9 @@
 }
 
 .icon {
-    color: var(--layout-bg-color-3);
+    color: var(--basic-colorful-fg);
+}
+
+.v-input__prepend {
+    margin-right: 0 !important;
 }

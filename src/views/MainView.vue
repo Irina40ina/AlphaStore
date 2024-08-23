@@ -5,21 +5,14 @@
             <div class="header-top d-flex justify-start align-center w-100">
                 <h1 class="logo w-25">Alpha Store</h1>        
                 <div class="search-block w-50 d-flex align-center">
-                    <v-autocomplete
-                    class="w-50"
-                    placeholder="Поиск.."
-                    variant="solo"
-                    :rounded="'lg'"
-                    clearable
-                    hide-details
-                    :prepend-inner-icon="'mdi-magnify'"
-                    :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
-                    :density="'compact'"
-                    item-color="var(--input-bg)"
-                    ></v-autocomplete>
+                    <autocompleteComp :items="['New York', 'Krasnodar ']" />
                 </div>
                 <div class="action w-25 h-100 d-flex align-center justify-end ga-2">
-                    <v-switch :prepend-icon="'mdi-brightness-6'" class="switch-icon" color="var(--switch-color)"  @update:model-value="(e) => console.log(e)"></v-switch>
+                    <v-switch class="h-100 mr-2" color="var(--switch-color)" @update:model-value="(e) => console.log(e)">
+                        <template #prepend>
+                            <v-icon class="mr-1" color="var(--icon-color)" icon="mdi-brightness-6" size="small"></v-icon>
+                        </template>
+                    </v-switch>
                     <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-cart-outline" density="comfortable">
                     </v-btn>
                     <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-account" density="comfortable">
@@ -47,52 +40,15 @@
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <main class="main">
             <div class="product-list">
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
+                <cardComp> </cardComp>
             </div>
         </main>
     </div>
 </template>
 
 <script setup>
+import autocompleteComp from '@/components/UI/autocompleteComp.vue';
+import cardComp from '@/components/cardlist/cardComp.vue';
 </script>
 
 <style scoped>
@@ -141,10 +97,6 @@
 .logo:hover {
     color: var(--basic-colorful-hover-fg);
     transition: all .7s ease;
-}
-.switch-icon {
-    color: var(--switch-icon-color);
-    height: 100%;
 }
 
 .navigation {
