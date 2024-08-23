@@ -8,24 +8,25 @@
                     <v-autocomplete
                     class="w-50"
                     placeholder="Поиск.."
-                    variant="outlined"
+                    variant="solo"
                     :rounded="'lg'"
                     clearable
                     hide-details
                     :prepend-inner-icon="'mdi-magnify'"
                     :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
                     :density="'compact'"
+                    item-color="var(--input-bg)"
                     ></v-autocomplete>
                 </div>
-                <div class="action w-25 d-flex align-center justify-end ga-1">
-                    <v-switch :prepend-icon="'mdi-brightness-6'" @update:model-value="(e) => console.log(e)"></v-switch>
+                <div class="action w-25 h-100 d-flex align-center justify-end ga-2">
+                    <v-switch :prepend-icon="'mdi-brightness-6'" class="switch-icon" color="var(--switch-color)"  @update:model-value="(e) => console.log(e)"></v-switch>
                     <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-cart-outline" density="comfortable">
                     </v-btn>
                     <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-account" density="comfortable">
                     </v-btn>
                 </div>
             </div>
-            <nav class="navigation d-flex justify-start align-center w-100 px-5">
+            <nav class="navigation d-flex justify-start align-center w-100">
                 <ul class="nav-list d-flex align-center">
                     <li class="nav-item">Квартира</li>
                     <li class="nav-item">Коттедж</li>
@@ -141,8 +142,16 @@
     color: var(--basic-colorful-hover-fg);
     transition: all .7s ease;
 }
+.switch-icon {
+    color: var(--switch-icon-color);
+    height: 100%;
+}
+
 .navigation {
     height: 30%;
+}
+.nav-list {
+    list-style: none;
 }
 .nav-item {
     position: relative;
@@ -151,12 +160,13 @@
     height: 100%;
     padding: 0 .5rem;
     border-radius: var(--nav-item-round);
+    box-shadow: var(--basic-shadow);
     transition: all .7s ease;
     user-select: none;
     cursor: pointer;
 }
 .nav-item + .nav-item {
-    margin-left: 0.1rem;
+    margin-left: 0.3rem;
 }
 .nav-item:hover {
     transition: all .7s ease;
