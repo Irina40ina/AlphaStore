@@ -40,7 +40,7 @@
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <main class="main">
             <div class="product-list">
-                <cardComp> </cardComp>
+                <cardComp v-for="apt in apartments" :apt-data="apt"> </cardComp>
             </div>
         </main>
     </div>
@@ -49,6 +49,14 @@
 <script setup>
 import autocompleteComp from '@/components/UI/autocompleteComp.vue';
 import cardComp from '@/components/cardlist/cardComp.vue';
+import { fetchApts } from '@/api/aptApi.js';
+import { onMounted, ref } from 'vue';
+
+const apartments = ref([]);
+
+onMounted(async() => {
+    apartments.value = await fetchApts();
+})
 </script>
 
 <style scoped>
