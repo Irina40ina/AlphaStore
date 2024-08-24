@@ -141,7 +141,7 @@ import cardComp from '@/components/cardlist/cardComp.vue';
     display: grid;
     align-items: center;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-columns: repeat(auto-fit, 250px);
     justify-items: center;
     gap: 0.5rem;
 }
