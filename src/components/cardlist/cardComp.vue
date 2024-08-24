@@ -1,16 +1,21 @@
 <template>
     <div class="card-container">
-        <Carousel :value="items" :numVisible="1" :numScroll="1">
-            <template #item="slotProps">
-                <Image :src="slotProps.data" alt="Image" class="w-100"/>
-            </template>
-        </Carousel>
+        <v-carousel :show-arrows="false" class="w-100 h-75" cycle="true" continuous="true">
+            <v-carousel-item
+            v-for="(item,i) in items"
+            :key="i"
+            :src="item"
+            cover
+            ></v-carousel-item>
+        </v-carousel>
+        <div class="w-100 h-25">
+            <h2 class="card-title">1к. квартира, 45кв., 10/19эт.</h2>
+        </div>
     </div>
+
 </template>
 
 <script setup>
-import Carousel from 'primevue/carousel';
-import Image from 'primevue/image';
 import { reactive } from 'vue';
 const items = reactive([
     'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fremont-f.ru%2Fupload%2Fiblock%2F597%2Fdizayn-interyera-kvartiry-v-sovremennom-stile-gostinaja-2.jpg&f=1&nofb=1&ipt=2eb8712bc4a7115cee79fa3fb412f43f2fc6b557d522feb154f44df45da92661&ipo=images',
@@ -27,7 +32,18 @@ const items = reactive([
 <style scoped>
 .card-container {
     width: 100%;
-    height: 250px;
-    
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--basic-shadow);
+    padding: .5rem .3rem;
 } 
+.card-title {
+    text-align: center;
+    color: var(--card-title-fg);
+    font-size: 20px;
+    font-family: var(--basic-font);
+}
 </style>    
