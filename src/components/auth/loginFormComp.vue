@@ -1,38 +1,65 @@
 <template>
     <v-sheet class="mx-auto" :elevation="4" width="300">
-      <v-form fast-fail @submit.prevent>
-        <v-text-field
-          v-model="firstName"
-          :rules="firstNameRules"
-          label="Введите логин"
-        ></v-text-field>
-  
-        <v-text-field
-          v-model.trim="password"
-          :rules="passwordRules"
-          label="Введите пароль"
-        ></v-text-field>
-  
-        <v-btn class="mt-2" type="submit" block>Войти</v-btn>
-        <v-btn class="mt-2" type="submit" block>Зарегистрироваться</v-btn>
-      </v-form>
+        <v-form fast-fail @submit.prevent>
+
+            <v-text-field v-if="loginMode === 'email'" v-model="email" v-mask="'00-00'" :rules="emailRules" label="Введите E-mail">
+            </v-text-field>
+
+            <v-text-field
+            v-else-if="loginMode === 'phone'"
+                v-model="phone"
+                :rules="phoneRules"
+                label="Введите номер телефона"
+                v-mask="'+7(000)-000-00-00'"
+            ></v-text-field>
+
+            <v-text-field v-model.trim="password" :rules="passwordRules" label="Введите пароль"></v-text-field>
+
+            <p @click="changeLoginMode">{{ loginModeLable }}</p>
+
+            <v-btn class="mt-2" type="submit" block >Войти</v-btn>
+            <v-btn class="mt-2" type="submit" block>Зарегистрироваться</v-btn>
+        </v-form>
     </v-sheet>
-  </template>
+</template>
+
 <script setup>
-import { ref } from 'vue';
-import { isValidPassword } from '@/utils/validation';
+import { ref, computed } from 'vue';
+import { isValidPassword, isValidEmail } from '@/utils/validation';
 
 // Определяем реактивные переменные
-const firstName = ref('');
+const email = ref('');
+const phone = ref('');
 const password = ref('');
+let loginMode = ref('email'); // email | phone
 
+const loginModeLable = computed(() => {
+  if(loginMode.value === 'email') {
+    return 'Войти по номеру телефона';
+  } 
+  else if(loginMode.value === 'phone') {
+    return 'Войти по E-mail';
+  }
+  return '';
+});
 // Определяем функции для проверки правил
-const firstNameRules = [
-  v => (v && v.length >= 3) || 'Имя должно содержать не менее 3 символов',
+const emailRules = [
+    v => (isValidEmail(v)) || 'Имя должно содержать не менее 3 символов',
 ];
 
 const passwordRules = [
-  v => (isValidPassword(v)) || 'Введите корректный пароль',
+    v => (isValidPassword(v)) || 'Введите корректный пароль',
 ];
 
+const phoneRules = [
+    value => !!value || 'Номер телефона обязательное поле',
+]
+function changeLoginMode() {
+  if(loginMode.value === 'email') {
+    loginMode.value = 'phone';
+  } 
+  else if(loginMode.value === 'phone') {
+    loginMode.value = 'email';
+  }
+}
 </script>
