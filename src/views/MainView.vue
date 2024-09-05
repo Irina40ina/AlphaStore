@@ -3,22 +3,27 @@
         <!-- ШАПКА -->
         <header class="header elevation-2 d-flex flex-column justify-start align-center px-5">
             <div class="header-top d-flex justify-start align-center w-100">
-                <h1 class="logo w-25">Alpha Store</h1>        
+                <h1 class="logo w-25">Alpha Store</h1> 
+                <!-- Поиск -->
                 <div class="search-block w-50 d-flex align-center">
                     <autocompleteComp :items="['New York', 'Krasnodar ']" />
                 </div>
                 <div class="action w-25 h-100 d-flex align-center justify-end ga-2">
+                    <!-- Смена темы -->
                     <v-switch class="h-100 mr-2" color="var(--switch-color)" @update:model-value="(e) => console.log(e)">
                         <template #prepend>
                             <v-icon class="mr-1" color="var(--icon-color)" icon="mdi-brightness-6" size="small"></v-icon>
                         </template>
                     </v-switch>
+                    <!-- Значок корзины -->
                     <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-cart-outline" density="comfortable">
                     </v-btn>
-                    <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-account" density="comfortable">
+                    <!-- Значок профиля -->
+                    <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-account" density="comfortable" @click="goToAuthForm">
                     </v-btn>
                 </div>
             </div>
+            <!-- Раздел навигации -->
             <nav class="navigation d-flex justify-start align-center w-100">
                 <ul class="nav-list d-flex align-center">
                     <li class="nav-item">Квартира</li>
@@ -40,7 +45,7 @@
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <main class="main">
             <div class="product-list">
-                <cardComp v-for="apt in apartments" :apt-data="apt"> </cardComp>
+                <cardComp v-for="apt in apartments" :key="apt" :apt-data="apt"> </cardComp>
             </div>
         </main>
     </div>
@@ -51,8 +56,15 @@ import autocompleteComp from '@/components/UI/autocompleteComp.vue';
 import cardComp from '@/components/cardlist/cardComp.vue';
 import { fetchApts } from '@/api/aptApi.js';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const apartments = ref([]);
+
+const goToAuthForm = () => {
+      router.push('/auth');  
+    };
 
 onMounted(async() => {
     apartments.value = await fetchApts();
