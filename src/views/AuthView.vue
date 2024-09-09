@@ -1,11 +1,10 @@
 <template>
     <div class="auth-form-container">
-       <loginFormComp></loginFormComp> 
+        <router-view></router-view>
     </div>
 </template>
 
 <script setup>
-import loginFormComp from '@/components/auth/loginFormComp.vue';
 </script>
 
 <style scoped>
