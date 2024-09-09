@@ -1,8 +1,8 @@
 <template>
-    <v-sheet class="mx-auto" :elevation="4" width="300">
+    <v-sheet class="mx-auto rounded" :elevation="4" width="300">
         <v-form fast-fail @submit.prevent>
 
-            <v-text-field v-if="loginMode === 'email'" v-model="email" v-mask="'00-00'" :rules="emailRules" label="Введите E-mail">
+            <v-text-field v-if="loginMode === 'email'" v-model="email" :rules="emailRules" label="Введите E-mail">
             </v-text-field>
 
             <v-text-field
@@ -15,10 +15,10 @@
 
             <v-text-field v-model.trim="password" :rules="passwordRules" label="Введите пароль"></v-text-field>
 
-            <p @click="changeLoginMode">{{ loginModeLable }}</p>
+            <p class="text-auth-dialog" @click="changeLoginMode">{{ loginModeLable }}</p>
 
-            <v-btn class="mt-2" type="submit" block >Войти</v-btn>
-            <v-btn class="mt-2" type="submit" block>Зарегистрироваться</v-btn>
+            <v-btn type="submit" block >Войти</v-btn>
+            <p class="text-auth-dialog" @click.prevent="$router.push({ name: 'logup' })">Создать аккаунт</p>
         </v-form>
     </v-sheet>
 </template>
@@ -44,7 +44,7 @@ const loginModeLable = computed(() => {
 });
 // Определяем функции для проверки правил
 const emailRules = [
-    v => (isValidEmail(v)) || 'Имя должно содержать не менее 3 символов',
+    v => (isValidEmail(v)) || 'Введите корректный E-mail',
 ];
 
 const passwordRules = [
@@ -63,3 +63,17 @@ function changeLoginMode() {
   }
 }
 </script>
+<style scoped>
+.text-auth-dialog {
+  text-align: center;
+  cursor: pointer;
+  color: var(--basic-fg);
+  font-family: var(--basic-font);
+  margin: .5rem 0;
+  transition: all .3s ease;
+}
+.text-auth-dialog:hover {
+color: var(--card-title-fg);
+transition: all .3s ease;
+}
+</style>
