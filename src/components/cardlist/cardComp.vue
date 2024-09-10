@@ -49,7 +49,7 @@ const handleMouseLeave = () => {
 // #######################################   COMPUTED  ###############################
 const computeAptTitle = computed(() => {
     if(props.aptData) {
-        const roomCount = props.aptData?.roomCount + 'к., ';
+        const roomCount = (props.aptData?.roomCount !== 0)? props.aptData?.roomCount + 'к., ' : ', ';
         const aptArea = props.aptData?.aptArea + 'кв.м, ';
         const floorInfo = props.aptData?.floor+'/'+props.aptData?.totalFloor + 'эт.';
         const aptType = props.aptData?.aptType;

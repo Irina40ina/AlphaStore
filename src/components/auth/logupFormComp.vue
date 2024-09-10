@@ -21,22 +21,27 @@
                     <v-icon class="icon-close-eye" :class="isClosedPassword? 'visible' : ''" color="var(--icon-color)" icon="mdi-eye-off-outline" size="small" @click="changeVisiblePassword"></v-icon>
                 </template>
             </v-text-field>
-            <v-text-field v-model.trim="passwordCheck" :rules="passwordCheckRules" :type="typePasswordCheck" label="Введите пароль ещё раз">
+            
+            <v-text-field v-model.trim="passwordCheck" :rules="passwordRepeatCheckRules" :type="typePasswordCheck" label="Введите пароль ещё раз">
                 <template #append>
                     <v-icon class="icon-open-eye" :class="isOpenedPasswordCheck? 'unvisible' : ''" color="var(--icon-color)" icon="mdi-eye-outline" size="small" @click="changeVisiblePasswordCheck"></v-icon>
                     <v-icon class="icon-close-eye" :class="isClosedPasswordCheck? 'visible' : ''" color="var(--icon-color)" icon="mdi-eye-off-outline" size="small" @click="changeVisiblePasswordCheck"></v-icon>
                 </template>
             </v-text-field>
 
-            <v-btn class="mb-2" type="submit" block >Зарегистрироваться</v-btn>
+            <v-btn type="submit" block>Зарегистрироваться</v-btn>
         </v-form>
     </v-sheet>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { isValidPassword, isValidEmail, hasSpecSymbols } from '@/utils/validation';
+import useAuthValidation from '@/composables/validation/auth.js';
 
+
+
+
+// ##############################  DATA  ##############################
 // Определяем реактивные переменные
 const name = ref('');
 const email = ref('');
@@ -50,24 +55,17 @@ const isClosedPasswordCheck = ref(false);
 const typePassword = ref('password');
 const typePasswordCheck = ref('password');
 
-// Определяем функции для проверки правил
-const nameRules = [
-    v => (v.length > 3 && hasSpecSymbols(v)) || 'Имя должно состоять из 3 и более символов, не должно содержать !@#$%^&*()_-=+|{}[]/?.>,<\'`"~'
-]
-const emailRules = [
-    v => (isValidEmail(v)) || 'Введите корректный E-mail',
-];
 
-const passwordRules = [
-    v => (isValidPassword(v)) || 'Введите корректный пароль',
-];
+// ##############################  COMPOSABLES  ##############################
+const { 
+    nameRules, 
+    emailRules, 
+    passwordRules,
+    passwordRepeatCheckRules,
+    phoneRules,
+} = useAuthValidation(password);
 
-const passwordCheckRules = [
-    v => (v === password.value) || 'Пароли не совпадают'
-]
-const phoneRules = [
-    value => !!value || 'Номер телефона обязательное поле',
-]
+// ##############################  METHODS  ##############################
 const changeVisiblePassword = () => {
     if(isOpenedPassword.value === false) {
         isOpenedPassword.value = true;
@@ -92,8 +90,9 @@ const changeVisiblePasswordCheck = () => {
     }
     return
 }
-
 </script>
+
+
 <style scoped>
 .icon-open-eye {
     margin-right: 1rem;

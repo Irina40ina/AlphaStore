@@ -14,26 +14,38 @@
             ></v-text-field>
 
             <v-text-field v-model.trim="password" :rules="passwordRules" label="Введите пароль"></v-text-field>
-
-            <p class="text-auth-dialog" @click="changeLoginMode">{{ loginModeLable }}</p>
+            <div class="w-100 px-2 mb-3">
+              <p class="text-auth-dialog" @click="changeLoginMode">{{ loginModeLabel }}</p>
+              <router-link class="text-auth-dialog" :to="{ name: 'logup' }">Если нет аккаунта, <span style="color: var(--card-title-fg);">зарегистрируйтесь</span></router-link>
+            </div>
 
             <v-btn type="submit" block >Войти</v-btn>
-            <p class="text-auth-dialog" @click.prevent="$router.push({ name: 'logup' })">Создать аккаунт</p>
         </v-form>
     </v-sheet>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
-import { isValidPassword, isValidEmail } from '@/utils/validation';
+import useAuthValidation from '@/composables/validation/auth.js';
 
+// ##############################  COMPOSABLES  ##############################
+const {  
+  emailRules, 
+  passwordRules,
+  phoneRules,
+} = useAuthValidation();
+
+
+// ##############################  DATA  ##############################
 // Определяем реактивные переменные
 const email = ref('');
 const phone = ref('');
 const password = ref('');
 let loginMode = ref('email'); // email | phone
 
-const loginModeLable = computed(() => {
+
+// ##############################  COMPUTED  ##############################
+const loginModeLabel = computed(() => {
   if(loginMode.value === 'email') {
     return 'Войти по номеру телефона';
   } 
@@ -42,18 +54,8 @@ const loginModeLable = computed(() => {
   }
   return '';
 });
-// Определяем функции для проверки правил
-const emailRules = [
-    v => (isValidEmail(v)) || 'Введите корректный E-mail',
-];
 
-const passwordRules = [
-    v => (isValidPassword(v)) || 'Введите корректный пароль',
-];
-
-const phoneRules = [
-    value => !!value || 'Номер телефона обязательное поле',
-]
+// ##############################  METHODS  ##############################
 function changeLoginMode() {
   if(loginMode.value === 'email') {
     loginMode.value = 'phone';
@@ -63,17 +65,17 @@ function changeLoginMode() {
   }
 }
 </script>
+
 <style scoped>
 .text-auth-dialog {
-  text-align: center;
   cursor: pointer;
   color: var(--basic-fg);
+  font-size: 13px;
   font-family: var(--basic-font);
-  margin: .5rem 0;
   transition: all .3s ease;
 }
 .text-auth-dialog:hover {
-color: var(--card-title-fg);
-transition: all .3s ease;
+  color: var(--card-title-fg);
+  transition: all .3s ease;
 }
 </style>
