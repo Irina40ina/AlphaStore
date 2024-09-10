@@ -39,7 +39,7 @@
 
         <!-- БОКОВАЯ ПАНЕЛЬ -->
         <aside class="aside">
-
+            <filterComp></filterComp>
         </aside>
 
         <!-- ОСНОВНОЙ КОНТЕНТ -->
@@ -54,6 +54,7 @@
 <script setup>
 import autocompleteComp from '@/components/UI/autocompleteComp.vue';
 import cardComp from '@/components/cardlist/cardComp.vue';
+import filterComp from '@/components/filter/filterComp.vue';
 import { fetchApts } from '@/api/aptApi.js';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
