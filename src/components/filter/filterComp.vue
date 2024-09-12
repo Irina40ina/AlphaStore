@@ -1,25 +1,38 @@
 <template>
     <div class="main-filter-container">
         <h2 class="filter-title">Фильтры</h2>
+        <!-- Площадь -->
         <aptAreaComp v-model="filterData.aptArea"></aptAreaComp>
-        <roomCountComp v-model = "filterData.roomCount"></roomCountComp>
+        <!-- Кол-во комнат -->
+        <roomCountComp v-model="filterData.roomCount"></roomCountComp>
+        <!-- Этажность -->
         <h4 class="section-title">Этаж</h4>
         <floorComp v-model="filterData.floor"></floorComp>
+        <!-- Этажей в доме -->
         <h4 class="section-title">Этажей в доме</h4>
         <floorComp v-model="filterData.totalFloor"></floorComp>
+        <!-- Наличие лифта -->
         <h4 class="section-title">Лифт</h4>
         <radioComp :label_1="'Есть'" :label_2="'Нет'" v-model="filterData.hasElevator"></radioComp>
+        <!-- Наличие парковки -->
         <h4 class="section-title">Парковка</h4>
         <radioComp :label_1="'Есть'" :label_2="'Нет'" v-model="filterData.hasPark"></radioComp>
+        <!-- Наличие балкона -->
         <h4 class="section-title">Балкон</h4>
         <radioComp :label_1="'Есть'" :label_2="'Нет'" v-model="filterData.hasBalcony"></radioComp>
+        <!-- Возможность проживания с детьми -->
         <h4 class="section-title">С детьми</h4>
         <radioComp :label_1="'Можно'" :label_2="'Нельзя'" v-model="filterData.hasAllowChild"></radioComp>
+        <!-- Возможность проживания с животными -->
         <h4 class="section-title">С животными</h4>
         <radioComp :label_1="'Можно'" :label_2="'Нельзя'" v-model="filterData.hasAllowAnimals"></radioComp>
+        <!-- Стоимость -->
         <costComp v-model="filterData.cost"></costComp>
+        <!-- Страна -->
         <selectComp v-model="filterData.country" :lable="'Выберите страну'" :items="countries"></selectComp>
+        <!-- Город -->
         <selectComp v-model="filterData.city" :lable="'Выберите город'" :items="cities"></selectComp>
+        
         <v-btn @click="saveChanges">Сохранить</v-btn>
     </div>
 </template>
@@ -32,10 +45,9 @@ import floorComp from './floorComp.vue';
 import radioComp from './radioComp.vue';
 import costComp from './costComp.vue';
 import selectComp from './selectComp.vue';
-import { fetchLocations } from '@/api/locationApi'
+import { fetchLocations } from '@/api/locationApi';
 
 // ##############################  DATA  ##############################
-
 const filterData = reactive({
     aptArea: [],
     roomCount: [],
@@ -57,7 +69,7 @@ const cities = ref([]);
 // Для проверки
 const saveChanges = () => {
     // console.log(filterData.roomCount)
-    console.log(filterData.country, filterData.city)
+    console.log('SAVE', filterData.roomCount);
 }
 // ##############################  WATCHER  ##############################
 
@@ -78,6 +90,11 @@ watch(
 // ##############################  MOUNTED  ##############################
 
 onMounted(async () => {
+    setTimeout(() => {
+        filterData.roomCount = [3,4,0];
+        filterData.floor = [1,2];
+    }, 500);
+
     locations.value = await fetchLocations();
     if(locations.value) {
         locations.value.forEach((el) => {
