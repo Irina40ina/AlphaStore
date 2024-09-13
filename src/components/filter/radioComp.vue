@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-md-column w-100">
-        <v-radio-group inline @update:model-value="(e) => emits('update:modelValue', e)">
+        <v-radio-group inline @update:model-value="(e) => emits('update:modelValue', e)" v-model="radioValue">
             <v-radio 
             :label="props.label_1" 
             color="purple-darken-2" 
@@ -18,7 +18,8 @@
     </div>
 </template>
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, ref, onMounted, watch } from 'vue';
+const radioValue = ref(null);
 
 const emits = defineEmits(['update:modelValue'])
 
@@ -33,7 +34,22 @@ const props = defineProps({
         required: true,
         default: '',
     },
+    modelValue: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
 }) 
+watch(() => props.modelValue, (newValue, oldValue) => {
+    if(newValue && oldValue === null) {
+        radioValue.value = props.modelValue;
+    }
+});
+onMounted(() => {
+    if(props.modelValue !== null) {
+        radioValue.value = props.modelValue;
+    }
+});
 </script>
 <style scoped>
     

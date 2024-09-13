@@ -31,7 +31,7 @@
         <!-- Страна -->
         <selectComp v-model="filterData.country" :lable="'Выберите страну'" :items="countries"></selectComp>
         <!-- Город -->
-        <selectComp v-model="filterData.city" :lable="'Выберите город'" :items="cities"></selectComp>
+        <selectComp v-model="filterData.city" :lable="'Выберите город'" :items="cities" :select-mode="selectMode"></selectComp>
         
         <v-btn @click="saveChanges">Сохранить</v-btn>
     </div>
@@ -52,7 +52,7 @@ const filterData = reactive({
     aptArea: [],
     roomCount: [],
     floor: [],
-    totalFlor: [],
+    totalFloor: [],
     hasElevator: null,
     hasPark: null,
     hasBalcony: null,
@@ -65,7 +65,7 @@ const filterData = reactive({
 const locations = ref([]);
 const countries = ref([]);
 const cities = ref([]);
-
+const selectMode = ref(false);
 // Для проверки
 const saveChanges = () => {
     // console.log(filterData.roomCount)
@@ -86,22 +86,33 @@ watch(
         cities.value = locations.value[2].cities;
     }
 })
+watch(
+    () => filterData.country, (newValue) => {
+        if(newValue !== '') selectMode.value = false;
+    }
+)
 
 // ##############################  MOUNTED  ##############################
 
 onMounted(async () => {
-    setTimeout(() => {
-        filterData.roomCount = [3,4,0];
-        filterData.floor = [1,2];
-    }, 500);
-
     locations.value = await fetchLocations();
     if(locations.value) {
         locations.value.forEach((el) => {
         countries.value.push(el.country);
         cities.value.push(...el.cities);
     });  
+    // Блокировка выбора города 
+    if(filterData.country === '') {
+        selectMode.value = true;
+    } else {
+        selectMode.value = false;
     }
+    }
+
+    // setTimeout(() => {
+    //     filterData.city = 'Пермь';
+    // }, 500);
+
 
 })
 </script>
