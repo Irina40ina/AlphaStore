@@ -32,19 +32,36 @@
     </div>
 </template>
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, defineProps, onMounted, watch } from 'vue';
 const emits = defineEmits(['update:modelValue'])
 
+// ##############################  Props  ##############################
+const props = defineProps({
+    modelValue: {
+        type: Array,
+        required: false,
+        default: () => [],
+    }
+});
+ // ##############################  Data  ##############################
 const floorFrom = ref('');
 const floorTo = ref('');
 const readyValues = ref([]);
+
+// ##############################  Composables  ##############################
 const changeFloorFromRules = [
     v => (v >= 1 && v <= 24) || 'Этаж должен находиться в диапазоне от 1 до 24',
 ]
 const changeFloorToRules = [
     v => (v > floorFrom.value),
 ]
-
+// ##############################  Watch  ##############################
+watch(() => props.modelValue.length, (newValue, oldValue) => {
+    if(newValue > 0 && !oldValue) {
+        initfloor();
+    }
+});
+ // ##############################  Metods  ##############################
 function selectFloor(e, index) {
 
     if(e !== '' && readyValues.value[index] !== e) {
@@ -53,8 +70,20 @@ function selectFloor(e, index) {
         readyValues.value.splice(index, 1);
     }
     emits('update:modelValue', readyValues);
-
 }
+function initfloor() {
+    try {
+        if(props.modelValue.length) { 
+            floorFrom.value = props.modelValue[0];
+            floorTo.value = props.modelValue[1];
+        }
+    } catch (err) {
+        console.error(import.meta.url, ': initfloor => ', err)
+    }
+}
+onMounted(() => {
+    initfloor();
+});
 </script>
 <style scoped>
 
