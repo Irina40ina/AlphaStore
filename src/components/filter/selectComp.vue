@@ -7,7 +7,7 @@
             bg-color="purple-lighten-4"
             v-model="selectedValue"
             density="compact"
-            :disabled="props.selectMode"
+            :disabled="props.disabled"
         ></v-select>
     </div>
 </template>
@@ -30,7 +30,7 @@ const props = defineProps({
         required: false,
         default: '',
     },
-    selectMode: {
+    disabled: {
         type: Boolean,
         required: false,
         default: false,

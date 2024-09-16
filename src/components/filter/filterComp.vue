@@ -29,9 +29,9 @@
         <!-- Стоимость -->
         <costComp v-model="filterData.cost"></costComp>
         <!-- Страна -->
-        <selectComp v-model="filterData.country" :lable="'Выберите страну'" :items="countries"></selectComp>
+        <selectComp v-model="filterData.country" @update:model-value="(value) => console.log(value)" :lable="'Выберите страну'" :items="countries"></selectComp>
         <!-- Город -->
-        <selectComp v-model="filterData.city" :lable="'Выберите город'" :items="cities" :select-mode="selectMode"></selectComp>
+        <selectComp v-model="filterData.city" :lable="'Выберите город'" :items="cities" :disabled="citiesDisabled"></selectComp>
         
         <v-btn @click="saveChanges">Сохранить</v-btn>
     </div>
@@ -65,7 +65,7 @@ const filterData = reactive({
 const locations = ref([]);
 const countries = ref([]);
 const cities = ref([]);
-const selectMode = ref(false);
+const citiesDisabled = ref(false);
 // Для проверки
 const saveChanges = () => {
     // console.log(filterData.roomCount)
@@ -73,9 +73,24 @@ const saveChanges = () => {
 }
 // ##############################  WATCHER  ##############################
 
+// ИЗМЕНИТЬ ПОДХОД С ВОТЧЕРА НА ФУНКЦИИ
+// function updateCountry(value) {
+//     if(value && value === 'Россия') {
+//         cities.value = locations.value[0].cities;
+//     }
+//     if(value && value === 'Украина') {
+//         cities.value = locations.value[1].cities;
+//     }
+//     if(value && value === 'Беларусь') {
+//         cities.value = locations.value[2].cities;
+//     }
+//     if(value !== '') citiesDisabled.value = false;
+//     // if(value !== oldValue) citiesDisabled.value = true;
+// }
+
 watch(
     () => filterData.country,
-    (newValue) => {
+    (newValue, oldValue) => {
     if(newValue && newValue === 'Россия') {
         cities.value = locations.value[0].cities;
     }
@@ -85,12 +100,11 @@ watch(
     if(newValue && newValue === 'Беларусь') {
         cities.value = locations.value[2].cities;
     }
-})
-watch(
-    () => filterData.country, (newValue) => {
-        if(newValue !== '') selectMode.value = false;
+    if(newValue !== '') citiesDisabled.value = false;
+    if(newValue !== oldValue) citiesDisabled.value = true;
     }
 )
+
 
 // ##############################  MOUNTED  ##############################
 
@@ -98,22 +112,16 @@ onMounted(async () => {
     locations.value = await fetchLocations();
     if(locations.value) {
         locations.value.forEach((el) => {
-        countries.value.push(el.country);
-        cities.value.push(...el.cities);
-    });  
-    // Блокировка выбора города 
-    if(filterData.country === '') {
-        selectMode.value = true;
-    } else {
-        selectMode.value = false;
-    }
+            countries.value.push(el.country);
+            cities.value = el.cities;
+        });  
+        // Блокировка выбора города
+        citiesDisabled.value = !filterData.country;
     }
 
     // setTimeout(() => {
     //     filterData.city = 'Пермь';
     // }, 500);
-
-
 })
 </script>
 

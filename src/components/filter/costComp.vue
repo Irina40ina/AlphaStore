@@ -3,13 +3,13 @@
         <h4 class="cost-title">Стоимость (руб.)</h4>
         <v-range-slider 
         density="compact" 
-        :min="0"
-        :max="200000"
+        :min="min"
+        :max="max"
         thumb-color="var(--thumb-color)" 
         track-color="var(--track-color)" 
         track-fill-color="var(--track-fill-color)" 
         thumb-size="15"
-        :step="10000"
+        :step="step"
         :thumb-label="true"
         :strict="false"
         tick-size="2"
@@ -19,12 +19,16 @@
     </div>
 </template>
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { ref, defineProps, defineEmits } from 'vue';
+const step = ref(10000);
+const min = ref(0);
+const max = ref(200000);
+
 const props = defineProps({
     modelValue: {
         type: Array,
         required: false,
-        default: () => [0, 0],
+        default: () => [],
     }
 });
 const emits = defineEmits(['update:modelValue']);

@@ -3,29 +3,27 @@
         
         <div class="d-flex w-100">
             <v-text-field 
-            :rules="changeFloorFromRules" 
+            :rules="changeFloorRules" 
             v-model="floorFrom" 
             @update:modelValue="(e) => selectFloor(e, 0)" 
             density="compact" 
             type="number" 
-            min="1" 
-            max="25" 
+            :min="min" 
+            :max="max" 
             step="1" 
-            hide-details 
             placeholder="От"
             persistent-placeholder 
             ></v-text-field>
 
             <v-text-field 
-            :rules="changeFloorToRules" 
+            :rules="changeFloorRules" 
             v-model="floorTo" 
             @update:modelValue="(e) => selectFloor(e, 1)" 
             density="compact" 
             type="number" 
-            min="1" 
-            max="25" 
+            :min="min" 
+            :max="max" 
             step="1" 
-            hide-details 
             placeholder="До"
             ></v-text-field>
         </div>
@@ -43,34 +41,38 @@ const props = defineProps({
         default: () => [],
     }
 });
- // ##############################  Data  ##############################
+
+// ##############################  Data  ##############################
+const min = ref(1);
+const max = ref(30);
 const floorFrom = ref('');
 const floorTo = ref('');
 const readyValues = ref([]);
 
 // ##############################  Composables  ##############################
-const changeFloorFromRules = [
-    v => (v >= 1 && v <= 24) || 'Этаж должен находиться в диапазоне от 1 до 24',
-]
-const changeFloorToRules = [
-    v => (v > floorFrom.value),
-]
+const changeFloorRules = [
+    v => (v >= min.value) || `Мин. ${min.value}`,
+    v => (v <= max.value) || `Макc. ${max.value}`,
+];
+
 // ##############################  Watch  ##############################
 watch(() => props.modelValue.length, (newValue, oldValue) => {
     if(newValue > 0 && !oldValue) {
         initfloor();
     }
 });
- // ##############################  Metods  ##############################
-function selectFloor(e, index) {
 
-    if(e !== '' && readyValues.value[index] !== e) {
-        readyValues.value.splice(index, 1, e);
-    } else if(e === '') {
-        readyValues.value.splice(index, 1);
+ // ##############################  Metods  ##############################
+function selectFloor(e, initialValue) {
+    let value = +e;
+    readyValues.value[initialValue] = value;
+    if(!readyValues.value[0]) {
+        floorFrom.value = 1;
+        readyValues.value[0] = 1;
     }
-    emits('update:modelValue', readyValues);
+    emits('update:modelValue', readyValues.value);
 }
+
 function initfloor() {
     try {
         if(props.modelValue.length) { 

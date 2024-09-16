@@ -3,7 +3,7 @@
         <v-radio-group inline @update:model-value="(e) => emits('update:modelValue', e)" v-model="radioValue">
             <v-radio 
             :label="props.label_1" 
-            color="purple-darken-2" 
+            :color="'purple-darken-2'" 
             density="compact" 
             :value="true"
             ></v-radio>
@@ -19,10 +19,12 @@
 </template>
 <script setup>
 import { defineProps, defineEmits, ref, onMounted, watch } from 'vue';
-const radioValue = ref(null);
 
-const emits = defineEmits(['update:modelValue'])
+// ##############################  Emits  ##############################
+const emits = defineEmits(['update:modelValue']);
 
+
+// ##############################  Props  ##############################
 const props = defineProps({
     label_1: {
         type: String,
@@ -37,14 +39,22 @@ const props = defineProps({
     modelValue: {
         type: Boolean,
         required: false,
-        default: false,
+        default: null,
     },
 }) 
+
+// ##############################  Data  ##############################
+const radioValue = ref(null);
+
+// ##############################  WATCH  ##############################
 watch(() => props.modelValue, (newValue, oldValue) => {
     if(newValue && oldValue === null) {
         radioValue.value = props.modelValue;
     }
 });
+
+
+// ##############################  LIFECYCLE HOOKS  ##############################
 onMounted(() => {
     if(props.modelValue !== null) {
         radioValue.value = props.modelValue;
