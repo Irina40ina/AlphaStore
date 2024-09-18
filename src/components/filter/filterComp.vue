@@ -28,24 +28,26 @@
         <radioComp :label_1="'Можно'" :label_2="'Нельзя'" v-model="filterData.hasAllowAnimals"></radioComp>
         <!-- Стоимость -->
         <costComp v-model="filterData.cost"></costComp>
+        
         <!-- Страна -->
-        <selectComp v-model="filterData.country" @update:model-value="(value) => updateCountry(value)" :lable="'Выберите страну'" :items="countries"></selectComp>
+        <selectComp v-model="filterData.country" @update:model-value="filterData.city = ''" :lable="'Выберите страну'" :items="countries"></selectComp>
         <!-- Город -->
         <selectComp v-model="filterData.city" :lable="'Выберите город'" :items="cities" :disabled="citiesDisabled"></selectComp>
         
-        <v-btn @click="saveChanges">Сохранить</v-btn>
+        <v-btn @click="saveChanges">Найти</v-btn>
     </div>
 </template>
 
 <script setup>
-import { reactive, onMounted, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import aptAreaComp from './aptAreaComp.vue';
 import roomCountComp from './roomCountComp.vue';
 import floorComp from './floorComp.vue';
 import radioComp from './radioComp.vue';
 import costComp from './costComp.vue';
 import selectComp from './selectComp.vue';
-import { fetchLocations } from '@/api/locationApi';
+import useLocationData from '@/composables/locationComposable';
+
 
 // ##############################  DATA  ##############################
 const filterData = reactive({
@@ -62,49 +64,22 @@ const filterData = reactive({
     country: '',
     city: '',
 });
-const locations = ref([]);
-const countries = ref([]);
-const cities = ref([]);
+
+// const locations = ref([]);
 const citiesDisabled = ref(false);
+
+
+// ##############################  COMPOSABLES  ##############################
+const { countries, cities } = useLocationData(filterData);
+
+
+// ##############################  METHODS  ##############################
 // Для проверки
 const saveChanges = () => {
     // console.log(filterData.roomCount)
     console.log('SAVE', filterData.roomCount);
 }
-// ##############################  METHODS  ##############################
 
-// ИЗМЕНИТЬ ПОДХОД С ВОТЧЕРА НА ФУНКЦИИ
-function updateCountry(value) {
-    if(value) {
-        citiesDisabled.value = !filterData.country;
-        filterData.city = '';
-        updateCities(value, locations.value);
-    }
-}
-
-function updateCities(selectedCountry, countriesData) {
-  const countryData = countriesData.find(el => el.country === selectedCountry);
-  if (countryData) {
-    cities.value = countryData.cities;
-  } else {
-    console.log('Country not found');
-  }
-}
-
-// ##############################  MOUNTED  ##############################
-
-onMounted(async () => {
-    locations.value = await fetchLocations();
-    if(locations.value) {
-        countries.value = locations.value.map(el => el.country);
-        // Блокировка выбора города
-        citiesDisabled.value = !filterData.country;
-    }
-
-    // setTimeout(() => {
-    //     filterData.city = 'Пермь';
-    // }, 500);
-})
 </script>
 
 <style scoped>
