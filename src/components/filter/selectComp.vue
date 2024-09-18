@@ -37,15 +37,11 @@ const props = defineProps({
     }
 })
 const emits = defineEmits(['update:modelValue']);
-watch(() => props.modelValue, (newValue, oldValue) => {
-    if(newValue !== '' && oldValue === '') {
-        selectedValue.value = props.modelValue;
-    }
+watch(() => props.modelValue, (newValue) => {
+    selectedValue.value = newValue;
 });
 onMounted(() => {
-    if(props.modelValue !== '') {
         selectedValue.value = props.modelValue;
-    }
 });
 </script>
 <style scoped>

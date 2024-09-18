@@ -29,7 +29,7 @@
         <!-- Стоимость -->
         <costComp v-model="filterData.cost"></costComp>
         <!-- Страна -->
-        <selectComp v-model="filterData.country" @update:model-value="(value) => console.log(value)" :lable="'Выберите страну'" :items="countries"></selectComp>
+        <selectComp v-model="filterData.country" @update:model-value="(value) => updateCountry(value)" :lable="'Выберите страну'" :items="countries"></selectComp>
         <!-- Город -->
         <selectComp v-model="filterData.city" :lable="'Выберите город'" :items="cities" :disabled="citiesDisabled"></selectComp>
         
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, ref, watch } from 'vue';
+import { reactive, onMounted, ref } from 'vue';
 import aptAreaComp from './aptAreaComp.vue';
 import roomCountComp from './roomCountComp.vue';
 import floorComp from './floorComp.vue';
@@ -71,50 +71,32 @@ const saveChanges = () => {
     // console.log(filterData.roomCount)
     console.log('SAVE', filterData.roomCount);
 }
-// ##############################  WATCHER  ##############################
+// ##############################  METHODS  ##############################
 
 // ИЗМЕНИТЬ ПОДХОД С ВОТЧЕРА НА ФУНКЦИИ
-// function updateCountry(value) {
-//     if(value && value === 'Россия') {
-//         cities.value = locations.value[0].cities;
-//     }
-//     if(value && value === 'Украина') {
-//         cities.value = locations.value[1].cities;
-//     }
-//     if(value && value === 'Беларусь') {
-//         cities.value = locations.value[2].cities;
-//     }
-//     if(value !== '') citiesDisabled.value = false;
-//     // if(value !== oldValue) citiesDisabled.value = true;
-// }
+function updateCountry(value) {
+    if(value) {
+        citiesDisabled.value = !filterData.country;
+        filterData.city = '';
+        updateCities(value, locations.value);
+    }
+}
 
-watch(
-    () => filterData.country,
-    (newValue, oldValue) => {
-    if(newValue && newValue === 'Россия') {
-        cities.value = locations.value[0].cities;
-    }
-    if(newValue && newValue === 'Украина') {
-        cities.value = locations.value[1].cities;
-    }
-    if(newValue && newValue === 'Беларусь') {
-        cities.value = locations.value[2].cities;
-    }
-    if(newValue !== '') citiesDisabled.value = false;
-    if(newValue !== oldValue) citiesDisabled.value = true;
-    }
-)
-
+function updateCities(selectedCountry, countriesData) {
+  const countryData = countriesData.find(el => el.country === selectedCountry);
+  if (countryData) {
+    cities.value = countryData.cities;
+  } else {
+    console.log('Country not found');
+  }
+}
 
 // ##############################  MOUNTED  ##############################
 
 onMounted(async () => {
     locations.value = await fetchLocations();
     if(locations.value) {
-        locations.value.forEach((el) => {
-            countries.value.push(el.country);
-            cities.value = el.cities;
-        });  
+        countries.value = locations.value.map(el => el.country);
         // Блокировка выбора города
         citiesDisabled.value = !filterData.country;
     }
