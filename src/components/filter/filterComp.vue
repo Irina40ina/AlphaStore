@@ -47,7 +47,11 @@ import radioComp from './radioComp.vue';
 import costComp from './costComp.vue';
 import selectComp from './selectComp.vue';
 import useLocationData from '@/composables/locationComposable';
+import { useRouter, useRoute } from 'vue-router';
 
+
+const router = useRouter();
+const route = useRoute();
 
 // ##############################  DATA  ##############################
 const filterData = reactive({
@@ -78,6 +82,9 @@ const { countries, cities } = useLocationData(filterData);
 const saveChanges = () => {
     // console.log(filterData.roomCount)
     console.log('SAVE', filterData.roomCount);
+    router.push({ name: 'selectedApt', params: { ...route.params }, query: { ...filterData } })
+        .then(() => console.log(route.query))
+    
 }
 
 </script>

@@ -23,15 +23,16 @@
                     </v-btn>
                 </div>
             </div>
+            
             <!-- Раздел навигации -->
             <nav class="navigation d-flex justify-start align-center w-100">
                 <ul class="nav-list d-flex align-center">
-                    <li class="nav-item" @click="selectApt('Квартира')">Квартира</li>
-                    <li class="nav-item" @click="selectApt('Коттедж')">Коттедж</li>
-                    <li class="nav-item" @click="selectApt('Дом')">Дом</li>
-                    <li class="nav-item" @click="selectApt('Хостел')">Хостел</li>
-                    <li class="nav-item" @click="selectApt('Комната')">Комната</li>
-                    <li class="nav-item" @click="selectApt('Модуль')">Модуль</li>
+                    <li class="nav-item" @click="selectApt('kvartira')">Квартира</li>
+                    <li class="nav-item" @click="selectApt('kottedg')">Коттедж</li>
+                    <li class="nav-item" @click="selectApt('dom')">Дом</li>
+                    <li class="nav-item" @click="selectApt('hostel')">Хостел</li>
+                    <li class="nav-item" @click="selectApt('komnata')">Комната</li>
+                    <li class="nav-item" @click="selectApt('module')">Модуль</li>
                 </ul>
             </nav>
         </header>
@@ -55,27 +56,38 @@
 import autocompleteComp from '@/components/UI/autocompleteComp.vue';
 import cardComp from '@/components/cardlist/cardComp.vue';
 import filterComp from '@/components/filter/filterComp.vue';
-import { fetchApts, fetchSelectedApts } from '@/api/aptApi.js';
+import { fetchApts } from '@/api/aptApi.js';
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
-// ##############################  DATA  ##############################
 const router = useRouter();
-
+const route = useRoute();
+// ##############################  DATA  ##############################
+const selectedAptMatches = {
+    'kvartira': ['Студия', 'Квартира'],
+    'kottedg': ['Коттедж'],
+    'dom': ['Дом'],
+    'hostel': ['Хостел'],
+    'komnata': ['Комната'],
+    'module': ['Модуль'],
+}
 const apartments = ref([]);
 
 // ##############################  METHODS  ##############################
 const goToAuthForm = () => {
-      router.push('/auth');  
-    };
-    const selectApt = async (selectedApt) => {
-      router.push({ name: 'selectedApt', params: { selectedApt } });
-      apartments.value = await fetchSelectedApts(selectedApt);
-    };
+    router.push('/auth');  
+};
+const selectApt = async (selectedApt) => {
+    router.push({ name: 'selectedApt', params: { selectedApt }, query: { ...route.query } });
+    apartments.value = await fetchApts(bundleParamsApi());
+};
+function bundleParamsApi() {
+    return { aptType: selectedAptMatches[route.params.selectedApt], ...route.query }
+}
 // ##############################  MOUNTED  ##############################
 onMounted(async() => {
-    apartments.value = await fetchApts();
-})
+    apartments.value = await fetchApts(bundleParamsApi());
+});
 </script>
 
 <style scoped>

@@ -13,6 +13,7 @@
         <v-chip class="mt-2 mr-auto ml-2" size="small" prepend-icon="mdi-currency-rub" variant="outlined" color="var(--basic-colorful-fg)">
             {{ props.aptData?.cost }}
         </v-chip>
+        {{ props.aptData?.hasElevator }} {{ props.aptData?.hasBalcony }} {{ props.aptData?.hasPark }}
         <div class="w-100 mt-1 mb-2">
             <h2 class="card-title">{{ computeAptTitle }}</h2>
         </div>
