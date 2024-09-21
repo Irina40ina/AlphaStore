@@ -26,12 +26,12 @@
             <!-- Раздел навигации -->
             <nav class="navigation d-flex justify-start align-center w-100">
                 <ul class="nav-list d-flex align-center">
-                    <li class="nav-item">Квартира</li>
-                    <li class="nav-item">Коттедж</li>
-                    <li class="nav-item">Дом</li>
-                    <li class="nav-item">Хостел</li>
-                    <li class="nav-item">Комната</li>
-                    <li class="nav-item">Модуль</li>
+                    <li class="nav-item" @click="selectApt('Квартира')">Квартира</li>
+                    <li class="nav-item" @click="selectApt('Коттедж')">Коттедж</li>
+                    <li class="nav-item" @click="selectApt('Дом')">Дом</li>
+                    <li class="nav-item" @click="selectApt('Хостел')">Хостел</li>
+                    <li class="nav-item" @click="selectApt('Комната')">Комната</li>
+                    <li class="nav-item" @click="selectApt('Модуль')">Модуль</li>
                 </ul>
             </nav>
         </header>
@@ -55,18 +55,24 @@
 import autocompleteComp from '@/components/UI/autocompleteComp.vue';
 import cardComp from '@/components/cardlist/cardComp.vue';
 import filterComp from '@/components/filter/filterComp.vue';
-import { fetchApts } from '@/api/aptApi.js';
+import { fetchApts, fetchSelectedApts } from '@/api/aptApi.js';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+// ##############################  DATA  ##############################
 const router = useRouter();
 
 const apartments = ref([]);
 
+// ##############################  METHODS  ##############################
 const goToAuthForm = () => {
       router.push('/auth');  
     };
-
+    const selectApt = async (selectedApt) => {
+      router.push({ name: 'selectedApt', params: { selectedApt } });
+      apartments.value = await fetchSelectedApts(selectedApt);
+    };
+// ##############################  MOUNTED  ##############################
 onMounted(async() => {
     apartments.value = await fetchApts();
 })

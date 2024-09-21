@@ -18,6 +18,11 @@ const router = createRouter({
       component: MainView,
     },
     {
+      path: '/main/:selectedApt',
+      name: 'selectedApt',
+      component: MainView,
+    },
+    {
       path: '/auth',
       name: 'auth',
       component: AuthView,
