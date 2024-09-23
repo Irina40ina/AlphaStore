@@ -1,22 +1,13 @@
 <template>
     <div class="d-flex flex-md-column w-100">
         <h4 class="room-count-title">Количество комнат</h4>
-        <v-checkbox 
-        label="Студия" 
-        :value="0" 
-        density="compact" 
-        hide-details 
-        color="purple-darken-2" 
-        v-model="firstValue"
-        @update:model-value="(e) => handlerUpdateValue(e, 0)"
-        ></v-checkbox>
 
         <v-checkbox 
         label="1 комната" 
         :value="1" 
         density="compact" 
         hide-details 
-        v-model="secondValue"
+        v-model="firstValue"
         color="purple-darken-2"
         @update:model-value="(e) => handlerUpdateValue(e, 1)"
         ></v-checkbox>
@@ -26,7 +17,7 @@
         :value="2" 
         density="compact" 
         hide-details 
-        v-model="thirdValue"
+        v-model="secondValue"
         color="purple-darken-2"
         @update:model-value="(e) => handlerUpdateValue(e, 2)"
         ></v-checkbox>
@@ -36,7 +27,7 @@
         :value="3" 
         density="compact" 
         hide-details 
-        v-model="fourthValue"
+        v-model="thirdValue"
         color="purple-darken-2"
         @update:model-value="(e) => handlerUpdateValue(e, 3)"
         ></v-checkbox>
@@ -46,7 +37,7 @@
         :value="4" 
         density="compact" 
         hide-details 
-        v-model="fifthValue"
+        v-model="fourthValue"
         color="purple-darken-2"
         @update:model-value="(e) => handlerUpdateValue(e, 4)"
         ></v-checkbox>
@@ -74,7 +65,6 @@ const firstValue = ref(false);
 const secondValue = ref(false); 
 const thirdValue = ref(false); 
 const fourthValue = ref(false); 
-const fifthValue = ref(false); 
 const readyValues = ref([]);
 
 
@@ -95,11 +85,10 @@ function initRoomCount() {
     try {
         if(props.modelValue.length) { 
             props.modelValue.forEach((el) => {
-                if(el === 0) firstValue.value = el;
-                if(el === 1) secondValue.value = el;
-                if(el === 2) thirdValue.value = el;
-                if(el === 3) fourthValue.value = el;
-                if(el === 4) fifthValue.value = el;
+                if(el === 1) firstValue.value = el;
+                if(el === 2) secondValue.value = el;
+                if(el === 3) thirdValue.value = el;
+                if(el === 4) fourthValue.value = el;
             });
         }
     } catch (err) {
