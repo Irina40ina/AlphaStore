@@ -6,7 +6,6 @@ export default function useLocationData(filterData) {
     
     onMounted(async () => {
         locations.value = await fetchLocations();
-        console.log(locations.value);
     });
     
     // ##############################  COMPUTED  ##############################

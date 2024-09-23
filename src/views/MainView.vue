@@ -40,7 +40,7 @@
 
         <!-- БОКОВАЯ ПАНЕЛЬ -->
         <aside class="aside">
-            <filterComp></filterComp>
+            <filterComp @update-query-params="saveFilterChanges"></filterComp>
         </aside>
 
         <!-- ОСНОВНОЙ КОНТЕНТ -->
@@ -64,7 +64,7 @@ const router = useRouter();
 const route = useRoute();
 // ##############################  DATA  ##############################
 const selectedAptMatches = {
-    'kvartira': ['Студия', 'Квартира'],
+    'kvartira': ['Квартира'],
     'kottedg': ['Коттедж'],
     'dom': ['Дом'],
     'hostel': ['Хостел'],
@@ -83,6 +83,10 @@ const selectApt = async (selectedApt) => {
 };
 function bundleParamsApi() {
     return { aptType: selectedAptMatches[route.params.selectedApt], ...route.query }
+}
+async function saveFilterChanges() {
+    apartments.value = await fetchApts(bundleParamsApi());
+    console.log('отфильтрованный массив', apartments.value);
 }
 // ##############################  MOUNTED  ##############################
 onMounted(async() => {

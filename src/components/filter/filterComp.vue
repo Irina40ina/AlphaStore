@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, defineEmits } from 'vue';
 import aptAreaComp from './aptAreaComp.vue';
 import roomCountComp from './roomCountComp.vue';
 import floorComp from './floorComp.vue';
@@ -52,6 +52,9 @@ import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
+
+// ##############################  EMITS  ##############################
+const emits = defineEmits(['updateQueryParams']);
 
 // ##############################  DATA  ##############################
 const filterData = reactive({
@@ -80,10 +83,8 @@ const { countries, cities } = useLocationData(filterData);
 // ##############################  METHODS  ##############################
 // Для проверки
 const saveChanges = () => {
-    // console.log(filterData.roomCount)
-    console.log('SAVE', filterData.roomCount);
     router.push({ name: 'selectedApt', params: { ...route.params }, query: { ...filterData } })
-        .then(() => console.log(route.query))
+        .then(() => emits('updateQueryParams'));
     
 }
 
