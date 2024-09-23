@@ -18,7 +18,7 @@ const router = createRouter({
       component: MainView,
     },
     {
-      path: '/main/:selectedApt',
+      path: '/main/:selectedApt?',
       name: 'selectedApt',
       component: MainView,
     },

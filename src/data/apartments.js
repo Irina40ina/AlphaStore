@@ -66,7 +66,7 @@ export default [
     aptType: "Квартира",
     floor: 2,
     totalFloor: 6,
-    roomCount: 0,
+    roomCount: 1,
     hasAllowAnimals: false,
     hasAllowChild: false,
     cost: 35000,
@@ -281,7 +281,7 @@ export default [
     aptType: "Квартира",
     floor: 2,
     totalFloor: 8,
-    roomCount: 0,
+    roomCount: 1,
     hasAllowAnimals: true,
     hasAllowChild: false,
     cost: 30000,
@@ -306,7 +306,7 @@ export default [
     aptType: "Квартира",
     floor: 8,
     totalFloor: 18,
-    roomCount: 0,
+    roomCount: 1,
     hasAllowAnimals: true,
     hasAllowChild: false,
     cost: 39000,
@@ -394,7 +394,7 @@ export default [
     createdAt: "2024-08-21T12:00:00.000Z"
   },
   {
-    id: 3,
+    id: 16,
     images: [
       "https://www.masterm.by/upload/iblock/99e/99e979a2f0b3daa40361280ee5b0d8bb.jpg",
       "https://salon.ru/storage/thumbs/gallery/253/252462/835_3500_s517.jpg",
@@ -419,7 +419,7 @@ export default [
     createdAt: "2024-08-22T09:00:00.000Z"
   },
   {
-    id: 4,
+    id: 17,
     images: [
       "https://uralsmetproekt.ru/netcat_files/multifile/363/35/Nordik_0_.jpg",
     ],
@@ -443,7 +443,7 @@ export default [
     createdAt: "2024-08-23T11:00:00.000Z"
   },
   {
-    id: 5,
+    id: 18,
     images: [
       "https://api.dantonehome.ru/uploads/blocks/169263063311135.jpg",
 
@@ -468,7 +468,7 @@ export default [
     createdAt: "2024-08-24T14:00:00.000Z"
   },
   {
-    id: 6,
+    id: 19,
     images: [
       "https://latqvbedpllwqek.skdesign.ru/wp-content/uploads/2023/02/254976_3-4--w_500.webp",
       
@@ -493,7 +493,7 @@ export default [
     createdAt: "2024-08-25T16:00:00.000Z"
   },
   {
-    id: 7,
+    id: 20,
     images: [
       "https://static.tildacdn.com/tild6234-3333-4836-b436-373662353633/1_1.jpg",
       "https://stroitelexpert.ru/wp-content/uploads/2021/08/dizajn-malenkih-komnat-2.jpg",
@@ -518,7 +518,7 @@ export default [
     createdAt: "2024-08-26T18:00:00.000Z"
   },
   {
-    id: 8,
+    id: 21,
     images: [
       "https://www.home-projects.ru/upload/weimg_cache/925/925f0bf1f0ce560c847afa549ec5e41c/2_2.jpg",
     ],
@@ -542,7 +542,7 @@ export default [
     createdAt: "2024-08-27T19:00:00.000Z"
   },
   {
-    id: 9,
+    id: 22,
     images: [
       "https://mperspektiva.ru/upload/resize_cache/webp/iblock/ccc/ccc2e35e86b0be8d6133ace448da608d.webp",
     ],
@@ -565,7 +565,7 @@ export default [
     publicAt: "2024-08-28T20:00:00.000"
 },
 {
-  id: 1,
+  id: 23,
   images: [
       "https://houses.ru/upload/medialibrary/6a8/Forma01.jpg",
   ],
@@ -589,7 +589,7 @@ export default [
   createdAt: "2024-08-15T10:30:00.000Z"
 },
 {
-  id: 3,
+  id: 24,
   images: [
       "https://static1.abitant.com/uploads/project_image/265/6454/f5ygiimuqciv9x621hxz.jpg",
 
@@ -614,7 +614,7 @@ export default [
   createdAt: "2024-08-25T12:00:00.000Z"
 },
 {
-  id: 5,
+  id: 25,
   images: [
       "https://ruplans.ru/cms_files/98/184/4925/vid1.jpg",
   ],
@@ -638,7 +638,7 @@ export default [
   createdAt: "2024-08-28T15:00:00.000Z"
 },
 {
-  id: 6,
+  id: 26,
   images: [
       "https://vbryanske.com/media/_versions/%D1%82%D1%83%D1%80%D0%B8%D0%B7%D0%BC/hostel_2_large.jpg",
   ],
@@ -662,7 +662,7 @@ export default [
   createdAt: "2024-09-01T09:00:00.000Z"
 },
 {
-  id: 1,
+  id: 27,
   images: [
       "https://cdn.mebelvia.ru/images_complex/stati/design_loft1.webp?154358692385145",
 
@@ -687,7 +687,7 @@ export default [
   createdAt: "2024-09-01T10:00:00.000Z"
 },
 {
-  id: 2,
+  id: 28,
   images: [
       "https://latqvbedpllwqek.skdesign.ru/wp-content/uploads/2022/12/238862_childrens-room_1-min.jpg",
 
@@ -712,7 +712,7 @@ export default [
   createdAt: "2024-09-02T11:00:00.000Z"
 },
 {
-  id: 5,
+  id: 29,
   images: [
       "https://www.alfaplan.ru/upload/information_system_33/2/1/7/item_2170/information_items_property_279537.webp",
 
@@ -737,7 +737,7 @@ export default [
   createdAt: "2024-09-05T14:00:00.000Z"
 },
 {
-  id: 6,
+  id: 30,
   images: [
       "https://mamka.moscow/wp-content/uploads/dizajn-komnaty-podrostka-1.webp",
 
@@ -762,7 +762,7 @@ export default [
   createdAt: "2024-09-06T15:00:00.000Z"
 },
 {
-  id: 8,
+  id: 31,
   images: [
       "https://www.plans.ru/image/first-block-img-2.jpg",
   ],

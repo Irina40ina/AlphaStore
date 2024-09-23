@@ -46,7 +46,7 @@
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <main class="main">
             <div class="product-list">
-                <cardComp v-for="apt in apartments" :key="apt" :apt-data="apt"> </cardComp>
+                <cardComp v-for="apt in apartments" :key="apt.id" :apt-data="apt"> </cardComp>
             </div>
         </main>
     </div>
@@ -77,20 +77,27 @@ const apartments = ref([]);
 const goToAuthForm = () => {
     router.push('/auth');  
 };
+
 const selectApt = async (selectedApt) => {
     router.push({ name: 'selectedApt', params: { selectedApt }, query: { ...route.query } });
     apartments.value = await fetchApts(bundleParamsApi());
 };
+
 function bundleParamsApi() {
     return { aptType: selectedAptMatches[route.params.selectedApt], ...route.query }
 }
+
 async function saveFilterChanges() {
-    apartments.value = await fetchApts(bundleParamsApi());
-    console.log('отфильтрованный массив', apartments.value);
+    let bundle = bundleParamsApi() 
+    console.log('bundle', bundle);
+    apartments.value = await fetchApts(bundle);
 }
 // ##############################  MOUNTED  ##############################
 onMounted(async() => {
     apartments.value = await fetchApts(bundleParamsApi());
+    // console.log(`отфильтрованный массив ${apartments.value?.length}` , apartments.value);
+
+    
 });
 </script>
 
