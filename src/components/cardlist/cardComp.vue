@@ -18,15 +18,26 @@
             <h2 class="card-title">{{ computeAptTitle }}</h2>
         </div>
         <div class="w-100 d-flex justify-end">
-            <v-btn class="text-caption" color="var(--icon-color)" append-icon="mdi-open-in-new" variant="outlined" size="small" :elevation="2">Перейти</v-btn>
+            <v-btn 
+            class="text-caption" 
+            color="var(--icon-color)" 
+            append-icon="mdi-open-in-new" 
+            variant="outlined" 
+            size="small" 
+            :elevation="2"
+            @click="handlerOpenAptCard"
+            >
+                Перейти
+            </v-btn>
         </div>
     </div>
 
 </template>
 
 <script setup>
-import { defineProps, computed, ref } from 'vue';
-
+import { defineEmits, defineProps, computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 // #######################################   PROPS  ###############################
 const props = defineProps({
     aptData: {
@@ -35,7 +46,7 @@ const props = defineProps({
         required: false, 
     }
 });
-
+const emits = defineEmits(['openAptCard']);
 // #######################################   DATA  ###############################
 const isFocused = ref(false);
 
@@ -46,7 +57,10 @@ const handleMouseEnter = () => {
 const handleMouseLeave = () => {
     isFocused.value = false;
 }
-
+const handlerOpenAptCard = () => {
+    router.push({path: `/main/aptCard/${props.aptData?.id}`});
+    emits('openAptCard', props.aptData?.id);  // Emit the custom event to parent component  // Note: This is a workaround to pass data from child to parent component. In a real-world application, you would use a v-model or emit an event with the aptData as the payload.  // This will open the detailed card page when the button is clicked.  // Please note that this is a simplified example and real-world applications should handle data passing and navigation more efficiently.  //
+}
 // #######################################   COMPUTED  ###############################
 const computeAptTitle = computed(() => {
     if(props.aptData) {
