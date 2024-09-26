@@ -4,6 +4,7 @@ import AuthView from '@/views/AuthView.vue';
 import NotFound from '@/views/NotFound.vue';
 import loginFormComp from "@/components/auth/loginFormComp.vue";
 import logupFormComp from "@/components/auth/logupFormComp.vue";
+import cardContentComp from "@/components/cardlist/cardContentComp.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,9 +14,16 @@ const router = createRouter({
       redirect: { name: 'main' },
     },
     {
-      path: '/main',
+      path: '/main/',
       name: 'main',
       component: MainView,
+      children: [
+        {
+          path: "aptCard/:cardId",
+          component: cardContentComp,
+          name: "aptCard",
+        }
+      ]
     },
     {
       path: '/main/:selectedApt?',

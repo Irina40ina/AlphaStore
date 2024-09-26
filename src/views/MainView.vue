@@ -45,8 +45,10 @@
 
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <main class="main">
+            <router-view v-if="isSelectedAptCard"></router-view>
+            <cardContentComp v-if="isSelectedAptCard" :selectedApt></cardContentComp>
             <div class="product-list">
-                <cardComp v-for="apt in apartments" :key="apt.id" :apt-data="apt"> </cardComp>
+                <cardComp v-for="apt in apartments" :key="apt.id" :apt-data="apt" @open-apt-card="selectedApt"> </cardComp>
             </div>
         </main>
     </div>
@@ -56,8 +58,9 @@
 import autocompleteComp from '@/components/UI/autocompleteComp.vue';
 import cardComp from '@/components/cardlist/cardComp.vue';
 import filterComp from '@/components/filter/filterComp.vue';
+import cardContentComp from '@/components/cardlist/cardContentComp.vue';
 import { fetchApts } from '@/api/aptApi.js';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
@@ -72,6 +75,10 @@ const selectedAptMatches = {
     'module': ['Модуль'],
 }
 const apartments = ref([]);
+const selectedApt = ref(null);
+const isSelectedAptCard = computed(() => {
+    return route.path.includes('aptCard');
+});
 
 // ##############################  METHODS  ##############################
 const goToAuthForm = () => {
@@ -79,25 +86,30 @@ const goToAuthForm = () => {
 };
 
 const selectApt = async (selectedApt) => {
-    router.push({ name: 'selectedApt', params: { selectedApt }, query: { ...route.query } });
-    apartments.value = await fetchApts(bundleParamsApi());
+    await router.push({ name: 'selectedApt', params: { selectedApt }, query: { ...route.query } });
+    updateApts();
 };
 
 function bundleParamsApi() {
     return { aptType: selectedAptMatches[route.params.selectedApt], ...route.query }
 }
 
-async function saveFilterChanges() {
-    let bundle = bundleParamsApi() 
-    console.log('bundle', bundle);
-    apartments.value = await fetchApts(bundle);
+async function updateApts() {
+    apartments.value = await fetchApts(bundleParamsApi());
+}
+
+function saveFilterChanges() {
+    // let bundle = bundleParamsApi() 
+    // console.log('bundle', bundle);
+    updateApts();
+    // console.log(`отфильтрованный массив ${apartments.value?.length}` , apartments.value);
 }
 // ##############################  MOUNTED  ##############################
-onMounted(async() => {
-    apartments.value = await fetchApts(bundleParamsApi());
+onMounted(() => {
+    // let bundle = bundleParamsApi() 
+    // console.log('bundle', bundle);
+    updateApts();
     // console.log(`отфильтрованный массив ${apartments.value?.length}` , apartments.value);
-
-    
 });
 </script>
 
@@ -193,6 +205,7 @@ onMounted(async() => {
     justify-content: center;
     grid-template-columns: repeat(auto-fit, 250px);
     justify-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+    padding: .5rem 0;
 }
 </style>
