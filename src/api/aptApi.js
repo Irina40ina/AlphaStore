@@ -1,6 +1,21 @@
 import apartments from "@/data/apartments";  
 
+// Получение данных выбранных аппартаментов 
+export async function fetchAptById(id) {
 
+    return new Promise((resolve, reject) => {
+        try {
+            setTimeout(() => {
+                resolve(apartments.find((el) => el.id == id));  
+            }, 500)
+        }
+        catch (err) {
+            console.error(import.meta.url + ':fetchAptById  => ', err);
+            reject(err);
+        }
+    })
+     
+}
 // Получение всей недвижимости с сервера 
 export async function fetchApts(params) {
     return new Promise((resolve, reject) => {
@@ -126,7 +141,6 @@ export async function fetchApts(params) {
                         return apts;
                     }
                 }  
-                
                 const filteredByType = filterAptsByType(apartments, params.aptType);
                 const filteredByArea = filterAptsByArea(filteredByType, params.aptArea);
                 const filteredAptsByRoomCount = filterAptsByRoomCount(filteredByArea, params.roomCount);
@@ -140,10 +154,7 @@ export async function fetchApts(params) {
                 const filteredAptsByCost = filterAptsByCost(filteredAptsByAllowAnimals, params.cost);
                 const filteredAptsByCountry = filterAptsByCountry(filteredAptsByCost, params.country);
                 const filteredAptsByCity = filterAptsByCity(filteredAptsByCountry, params.city);
-                
-                // console.log('FILTER', filteredAptsByCity);
                 resolve(filteredAptsByCity);
-
             }, 600);
         } catch (err) {
             console.error(import.meta.url + ':fetchApts  => ', err);

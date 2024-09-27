@@ -36,83 +36,36 @@
                 </ul>
             </nav>
         </header>
-        
 
         <!-- БОКОВАЯ ПАНЕЛЬ -->
         <aside class="aside">
-            <filterComp @update-query-params="saveFilterChanges"></filterComp>
+            <filterComp></filterComp>
         </aside>
 
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <main class="main">
-            <!-- <router-view v-if="isSelectedAptCard"></router-view> -->
-            <cardContentComp v-if="isSelectedAptCard" :selected-apt-id="selectedAptId"></cardContentComp>
-            <div class="product-list" v-else>
-                <cardComp v-for="apt in apartments" :key="apt.id" :apt-data="apt"> </cardComp>
-            </div>
+            <router-view></router-view>
         </main>
     </div>
 </template>
 
 <script setup>
 import autocompleteComp from '@/components/UI/autocompleteComp.vue';
-import cardComp from '@/components/cardlist/cardComp.vue';
 import filterComp from '@/components/filter/filterComp.vue';
-import cardContentComp from '@/components/cardlist/cardContentComp.vue';
-import { fetchApts } from '@/api/aptApi.js';
-import { onMounted, ref, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
-// ##############################  DATA  ##############################
-const selectedAptMatches = {
-    'kvartira': ['Квартира'],
-    'kottedg': ['Коттедж'],
-    'dom': ['Дом'],
-    'hostel': ['Хостел'],
-    'komnata': ['Комната'],
-    'module': ['Модуль'],
-}
-const apartments = ref([]);
-// ##############################  COMPUTED  ##############################
-const isSelectedAptCard = computed(() => {
-    return route.path.includes('aptCard');
-});
-const selectedAptId = computed(() => {
-    return route.params.cardId;
-});
-// ##############################  METHODS  ##############################
+
+// // ##############################  METHODS  ##############################
 const goToAuthForm = () => {
     router.push('/auth');  
 };
 
-const selectApt = async (selectedApt) => {
-    await router.push({ name: 'selectedApt', params: { selectedApt }, query: { ...route.query } });
-    updateApts();
-};
-
-function bundleParamsApi() {
-    return { aptType: selectedAptMatches[route.params.selectedApt], ...route.query }
+async function selectApt(selectedTypeApt) {
+    await router.push({ name: 'selectedTypeApt', params: { selectedTypeApt }, query: { ...route.query } });
 }
 
-async function updateApts() {
-    apartments.value = await fetchApts(bundleParamsApi());
-}
-
-function saveFilterChanges() {
-    // let bundle = bundleParamsApi() 
-    // console.log('bundle', bundle);
-    updateApts();
-    // console.log(`отфильтрованный массив ${apartments.value?.length}` , apartments.value);
-}
-// ##############################  MOUNTED  ##############################
-onMounted(() => {
-    // let bundle = bundleParamsApi() 
-    // console.log('bundle', bundle);
-    updateApts();
-    // console.log(`отфильтрованный массив ${apartments.value?.length}` , apartments.value);
-});
 </script>
 
 <style scoped>
@@ -200,14 +153,5 @@ onMounted(() => {
     border-radius: var(--basic-radius);
     box-shadow: var(--basic-shadow);
 }
-.product-list {
-    width: 100%;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit, 250px);
-    justify-items: center;
-    gap: 1rem;
-    padding: .5rem 0;
-}
+
 </style>
