@@ -141,7 +141,7 @@ export async function fetchApts(params) {
                 const filteredAptsByCountry = filterAptsByCountry(filteredAptsByCost, params.country);
                 const filteredAptsByCity = filterAptsByCity(filteredAptsByCountry, params.city);
                 
-                console.log('FILTER', filteredAptsByCity);
+                // console.log('FILTER', filteredAptsByCity);
                 resolve(filteredAptsByCity);
 
             }, 600);

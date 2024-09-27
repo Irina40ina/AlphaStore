@@ -45,10 +45,10 @@
 
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <main class="main">
-            <router-view v-if="isSelectedAptCard"></router-view>
-            <cardContentComp v-if="isSelectedAptCard" :selectedApt></cardContentComp>
-            <div class="product-list">
-                <cardComp v-for="apt in apartments" :key="apt.id" :apt-data="apt" @open-apt-card="selectedApt"> </cardComp>
+            <!-- <router-view v-if="isSelectedAptCard"></router-view> -->
+            <cardContentComp v-if="isSelectedAptCard" :selected-apt-id="selectedAptId"></cardContentComp>
+            <div class="product-list" v-else>
+                <cardComp v-for="apt in apartments" :key="apt.id" :apt-data="apt"> </cardComp>
             </div>
         </main>
     </div>
@@ -75,11 +75,13 @@ const selectedAptMatches = {
     'module': ['Модуль'],
 }
 const apartments = ref([]);
-const selectedApt = ref(null);
+// ##############################  COMPUTED  ##############################
 const isSelectedAptCard = computed(() => {
     return route.path.includes('aptCard');
 });
-
+const selectedAptId = computed(() => {
+    return route.params.cardId;
+});
 // ##############################  METHODS  ##############################
 const goToAuthForm = () => {
     router.push('/auth');  
