@@ -59,7 +59,7 @@ const handleMouseLeave = () => {
 }
 const handlerOpenAptCard = () => {
     router.push({path: `/main/aptCard/${props.aptData?.id}`});
-    emits('openAptCard', props.aptData?.id);  // Emit the custom event to parent component  // Note: This is a workaround to pass data from child to parent component. In a real-world application, you would use a v-model or emit an event with the aptData as the payload.  // This will open the detailed card page when the button is clicked.  // Please note that this is a simplified example and real-world applications should handle data passing and navigation more efficiently.  //
+    emits('openAptCard', props.aptData);  // Emit the custom event to parent component  // Note: This is a workaround to pass data from child to parent component. In a real-world application, you would use a v-model or emit an event with the aptData as the payload.  // This will open the detailed card page when the button is clicked.  // Please note that this is a simplified example and real-world applications should handle data passing and navigation more efficiently.  //
 }
 // #######################################   COMPUTED  ###############################
 const computeAptTitle = computed(() => {
