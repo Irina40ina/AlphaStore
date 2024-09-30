@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { ref } from 'vue';
 
 export default defineStore('mainStore', () => {
     const selectedAptMatches = {
@@ -9,8 +10,11 @@ export default defineStore('mainStore', () => {
         'komnata': ['Комната'],
         'module': ['Модуль'],
     }
+    const apartments = ref([]);
+
     
     return {
         selectedAptMatches,
-    } 
+        apartments,
+    }
 });

@@ -6,7 +6,7 @@
                 <h1 class="logo w-25">Alpha Store</h1> 
                 <!-- Поиск -->
                 <div class="search-block w-50 d-flex align-center">
-                    <autocompleteComp :items="['']" />
+                    <autocompleteComp v-model="searchQuery" @confirm="handlerSearchApts()" :icon="'mdi-magnify'"/>
                 </div>
                 <div class="action w-25 h-100 d-flex align-center justify-end ga-2">
                     <!-- Смена темы -->
@@ -52,12 +52,24 @@
 <script setup>
 import autocompleteComp from '@/components/UI/autocompleteComp.vue';
 import filterComp from '@/components/filter/filterComp.vue';
+import { ref, computed } from 'vue';
+import useMainStore from '@/store/index.js';
 import { useRouter, useRoute } from 'vue-router';
+import { searchApts } from '@/api/aptApi';
 
+// ##############################  DATA  ##############################
+const searchQuery = ref('');
+
+// ##############################  ComposaBles  ##############################
 const router = useRouter();
 const route = useRoute();
+const store = useMainStore();
 
-// // ##############################  METHODS  ##############################
+const bundleSearchParams = computed(() => {
+    return { query: searchQuery.value, aptType: store.selectedAptMatches[route.params.selectedTypeApt] };
+})
+
+// ##############################  METHODS  ##############################
 const goToAuthForm = () => {
     router.push('/auth');  
 };
@@ -65,7 +77,10 @@ const goToAuthForm = () => {
 async function selectApt(selectedTypeApt) {
     await router.push({ name: 'selectedTypeApt', params: { selectedTypeApt }, query: { ...route.query } });
 }
-
+async function handlerSearchApts() {
+    store.apartments = await searchApts(bundleSearchParams.value);
+    console.log(store.apartments)
+}
 </script>
 
 <style scoped>

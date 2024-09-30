@@ -19,104 +19,18 @@
                     <span class="text-title">О квартире:</span>
 
                     <!-- ID (ДЛЯ ТЕСТА) -->
-                    <p>        
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else>ID: {{ aptData?.id }}</span>
-                    </p>
-
-                    <!-- ПЛОЩАДЬ -->
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Площадь: {{ aptData?.aptArea }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Этаж: {{ aptData?.floor }} из {{ aptData?.totalFloor }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Количество комнат: {{ aptData?.roomCount }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Лифт: {{ computeValue(aptData?.hasElevator) }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Парковка: {{ computeValue(aptData?.hasPark) }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Балкон: {{ computeValue(aptData?.hasBalcony) }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> С детьми: {{ computeValueOpportunity(aptData?.hasAllowChild) }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> С животными: {{ computeValueOpportunity(aptData?.hasAllowAnimals) }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Страна: {{ aptData?.country }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Город: {{ aptData?.city }} </span>
-                    </p>
-                    <p>
-                        <v-skeleton-loader
-                        v-if="loadingData"
-                        type="list-item"
-                        height="25"
-                        ></v-skeleton-loader>
-                        <span v-else> Район: {{ aptData?.district }} </span>
-                    </p>
+                    <info-unit :loading="loadingData"> ID: {{ aptData?.id }} </info-unit> 
+                    <info-unit :loading="loadingData"> Площадь: {{ aptData?.aptArea }} </info-unit> 
+                    <info-unit :loading="loadingData"> Этаж: {{ aptData?.floor }} из {{ aptData?.totalFloor }} </info-unit> 
+                    <info-unit :loading="loadingData"> Количество комнат: {{ aptData?.roomCount }} </info-unit> 
+                    <info-unit :loading="loadingData"> Лифт: {{ computeValue(aptData?.hasElevator) }} </info-unit> 
+                    <info-unit :loading="loadingData"> Парковка: {{ computeValue(aptData?.hasPark) }} </info-unit> 
+                    <info-unit :loading="loadingData"> Балкон: {{ computeValue(aptData?.hasBalcony) }} </info-unit> 
+                    <info-unit :loading="loadingData"> С детьми: {{ computeValueOpportunity(aptData?.hasAllowChild) }} </info-unit> 
+                    <info-unit :loading="loadingData"> С животными: {{ computeValueOpportunity(aptData?.hasAllowAnimals) }} </info-unit> 
+                    <info-unit :loading="loadingData"> Страна: {{ aptData?.country }} </info-unit> 
+                    <info-unit :loading="loadingData"> Город: {{ aptData?.city }} </info-unit> 
+                    <info-unit :loading="loadingData"> Район: {{ aptData?.district }} </info-unit> 
                 </div>
             </div>  
         </div>
@@ -131,6 +45,7 @@
 import { onMounted, ref } from 'vue';
 import { fetchAptById } from '@/api/aptApi.js';
 import { useRoute } from 'vue-router';
+import infoUnit from '@/components/cardInfo/infoUnit.vue';
 
 const route = useRoute();
 // #######################################   DATA  ###############################

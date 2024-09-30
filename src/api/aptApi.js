@@ -16,6 +16,38 @@ export async function fetchAptById(id) {
     })
      
 }
+// Поиск 
+export async function searchApts({ query, aptType }) {
+    return new Promise((resolve, reject) => {
+        try {
+            setTimeout(() => {
+                function filteredByType() {
+                    if(aptType) {
+                        return apartments.filter((el) => {
+                            return aptType?.includes(el.aptType)
+                        })
+                    } else return apartments;
+                }
+                const result = filteredByType().filter((el) => {
+                    if(
+                        el.title.toLowerCase().includes(query.toLowerCase()) ||
+                        el.country.toLowerCase().includes(query.toLowerCase()) ||
+                        el.city.toLowerCase().includes(query.toLowerCase()) ||
+                        el.district.toLowerCase().includes(query.toLowerCase())
+                    ) {
+                        return true;
+                    }
+                    else return false;
+                });
+                resolve(result);
+            }, 500);
+        }
+        catch (err) {
+            console.error(import.meta.url + ':searchApts  => ', err);
+            reject(err);
+        }
+    })
+}
 // Получение всей недвижимости с сервера 
 export async function fetchApts(params) {
     return new Promise((resolve, reject) => {

@@ -1,11 +1,11 @@
 <template>
     <div class="product-list">
-        <cardComp v-for="apt in apartments" :key="apt.id" :apt-data="apt"> </cardComp>
+        <cardComp v-for="apt in store.apartments" :key="apt.id" :apt-data="apt"> </cardComp>
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { fetchApts } from '@/api/aptApi.js';
 import { useRoute } from 'vue-router';
 import useMainStore from '@/store/index.js';
@@ -14,8 +14,6 @@ import cardComp from '@/components/cardlist/cardComp.vue';
 const route = useRoute();
 const store = useMainStore();
 
-// ##############################  DATA  ##############################
-const apartments = ref([]);
 
 // ##############################  WATCHER  ##############################
 // Изменение параметра пути (selectedTypeApt)
@@ -32,7 +30,7 @@ function bundleParamsApi() {
     return { aptType: store.selectedAptMatches[route.params.selectedTypeApt], ...route.query }
 }
 async function getApts() {
-    apartments.value = await fetchApts(bundleParamsApi());
+    store.apartments = await fetchApts(bundleParamsApi());
 }
 
 // ##############################  LIFECYCLE HOOKS  ##############################
