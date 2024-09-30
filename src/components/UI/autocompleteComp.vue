@@ -3,19 +3,18 @@
     class="w-50"
     placeholder="Поиск.."
     variant="solo"
-    :rounded="'lg'"
+    v-model="searchedData"
     clearable
     hide-details
     :prepend-inner-icon="'mdi-magnify'"
-    :items="props.items"
     :density="'compact'"
     item-color="var(--input-bg)"
     ></v-autocomplete>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
-
+import { defineProps, ref } from 'vue';
+const searchedData = ref('');
 const props = defineProps({
     items: {
         type: Array,
