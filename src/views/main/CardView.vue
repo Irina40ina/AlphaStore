@@ -23,6 +23,7 @@
                         <v-skeleton-loader
                         v-if="loadingData"
                         type="list-item"
+                        height="25"
                         ></v-skeleton-loader>
                         <span v-else>ID: {{ aptData?.id }}</span>
                     </p>
@@ -36,22 +37,92 @@
                         ></v-skeleton-loader>
                         <span v-else> Площадь: {{ aptData?.aptArea }} </span>
                     </p>
-                    <p>Этаж: {{ aptData?.floor }} из {{ aptData?.totalFloor }}</p>
-                    <p>Количество комнат: {{ aptData?.roomCount }}</p>
-                    <p>Лифт: {{ computeValue(aptData?.hasElevator) }}</p>
-                    <p>Парковка: {{ computeValue(aptData?.hasPark) }}</p>
-                    <p>Балкон: {{ computeValue(aptData?.hasBalcony) }}</p>
-                    <p>С детьми: {{ computeValueOpportunity(aptData?.hasAllowChild) }}</p>
-                    <p>С животными: {{ computeValueOpportunity(aptData?.hasAllowAnimals) }}</p>
-                    <p>Страна: {{ aptData?.country }}</p>
-                    <p>Город: {{ aptData?.city }}</p>
-                    <p>Район: {{ aptData?.district }}</p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> Этаж: {{ aptData?.floor }} из {{ aptData?.totalFloor }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> Количество комнат: {{ aptData?.roomCount }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> Лифт: {{ computeValue(aptData?.hasElevator) }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> Парковка: {{ computeValue(aptData?.hasPark) }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> Балкон: {{ computeValue(aptData?.hasBalcony) }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> С детьми: {{ computeValueOpportunity(aptData?.hasAllowChild) }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> С животными: {{ computeValueOpportunity(aptData?.hasAllowAnimals) }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> Страна: {{ aptData?.country }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> Город: {{ aptData?.city }} </span>
+                    </p>
+                    <p>
+                        <v-skeleton-loader
+                        v-if="loadingData"
+                        type="list-item"
+                        height="25"
+                        ></v-skeleton-loader>
+                        <span v-else> Район: {{ aptData?.district }} </span>
+                    </p>
                 </div>
             </div>  
         </div>
         <div>
             <span class="text-title">Описание:</span>
-            <p>Площадь: {{ aptData?.description }} кв.м</p>
+            <p> {{ aptData?.description }} </p>
         </div>
     </div>
 </template>
@@ -112,4 +183,5 @@ onMounted( async () => {
     font-size: 1rem;
     color: var(--basic-fg);
    }
+
 </style>

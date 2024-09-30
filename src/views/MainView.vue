@@ -6,7 +6,7 @@
                 <h1 class="logo w-25">Alpha Store</h1> 
                 <!-- Поиск -->
                 <div class="search-block w-50 d-flex align-center">
-                    <autocompleteComp :items="['New York', 'Krasnodar ']" />
+                    <autocompleteComp :items="['']" />
                 </div>
                 <div class="action w-25 h-100 d-flex align-center justify-end ga-2">
                     <!-- Смена темы -->

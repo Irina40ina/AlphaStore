@@ -45,3 +45,6 @@
 .v-input__prepend {
     margin-right: 0 !important;
 }
+.v-skeleton-loader__list-item {
+    margin: 0 !important;
+   }
