@@ -19,4 +19,6 @@ onMounted(() => {
     height: 150px;
     width: 100%;
 }
+
+@import url(./styles/media/index.css);
 </style>

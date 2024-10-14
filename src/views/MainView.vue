@@ -168,4 +168,56 @@ async function handlerSearchApts() {
     border-radius: var(--basic-radius);
     box-shadow: var(--basic-shadow);
 }
+
+/* ########################  MEDIA  ########################## */
+
+/* #####################   940px   #####################*/
+@media (max-width: 940px) {
+    .search-block {
+        width: 35% !important;
+    }
+    .header-top {
+        justify-content: space-between !important;
+    }
+}
+
+/* #####################   780px   #####################*/
+@media (max-width: 780px) {
+    .logo {
+        width: max-content !important;
+        font-size: 1.5rem;
+    }
+}
+/* #####################   690px   #####################*/
+@media (max-width: 690px) {
+    .action {
+        width: 140px !important;
+        gap: 3px !important;
+    }
+}
+/* #####################   520px   #####################*/
+@media (max-width: 520px) {
+    .search-block {
+        width: 25% !important;
+    }
+    .navigation {
+        display: none !important;
+    }
+    .header {
+        height: max-content !important;
+    }
+    .header-top {
+        height: 100% !important;
+    }
+}
+/* #####################   460px   #####################*/
+@media (max-width: 460px) {
+    .logo {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+    }
+    .header-top {
+    }
+}
 </style>
