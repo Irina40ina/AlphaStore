@@ -153,5 +153,4 @@ async function selectApt(selectedTypeApt) {
     border-radius: var(--basic-radius);
     box-shadow: var(--basic-shadow);
 }
-
 </style>
