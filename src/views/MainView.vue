@@ -168,5 +168,4 @@ async function handlerSearchApts() {
     border-radius: var(--basic-radius);
     box-shadow: var(--basic-shadow);
 }
-
 </style>

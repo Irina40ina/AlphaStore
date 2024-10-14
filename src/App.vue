@@ -14,6 +14,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
 .footer { 
     height: 150px;
     width: 100%;
