@@ -1,0 +1,54 @@
+/* #####################   1015px   #####################*/
+@media (max-width: 1015px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 200px) !important;
+    }
+}
+/* #####################   965px   #####################*/
+@media (max-width: 965px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 200px) !important;
+    }
+}
+/* #####################   880px   #####################*/
+@media (max-width: 880px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 180px) !important;
+    }
+}
+/* #####################   800px   #####################*/
+@media (max-width: 800px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 250px) !important;
+    }
+}
+/* #####################   730px   #####################*/
+@media (max-width: 730px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 200px) !important;
+    }
+}
+/* #####################   625px   #####################*/
+@media (max-width: 625px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 180px) !important;
+    }
+}
+/* #####################   585px   #####################*/
+@media (max-width: 585px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 300px) !important;
+    }
+}
+/* #####################   500px   #####################*/
+@media (max-width: 500px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 250px) !important;
+    }
+}
+/* #####################   430px   #####################*/
+@media (max-width: 430px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fit, 200px) !important;
+    }
+}

@@ -3,12 +3,33 @@
         <!-- ШАПКА -->
         <header class="header elevation-2 d-flex flex-column justify-start align-center px-5">
             <div class="header-top d-flex justify-start align-center w-100">
-                <h1 class="logo w-25">Alpha Store</h1> 
+                <h1 v-show="!isActive" class="logo w-25">Alpha Store</h1> 
+                <!-- Burger -->
+                <v-btn 
+                :class="{'burger-btn-media-active': !isActive, 'burger-btn': isActive}"
+                id="menu-activator" 
+                color="var(--basic-fg)" 
+                variant="outlined" 
+                icon="mdi-menu" 
+                density="comfortable"
+                >
+                </v-btn>
+                <!-- Контекстное меню -->
+                <contextMenuComp :items="menuItems" @select-item="changeContextMenuItem"/>
                 <!-- Поиск -->
-                <div class="search-block w-50 d-flex align-center">
+                <div :class="{'search-block': !isActive, 'search-block-active': isActive}">
                     <autocompleteComp v-model="searchQuery" @confirm="handlerSearchApts()" :icon="'mdi-magnify'"/>
                 </div>
                 <div class="action w-25 h-100 d-flex align-center justify-end ga-2">
+                    <!-- Кнопка отмены поиска -->
+                    <v-btn 
+                    :class="{'cancel-btn': !isActive, 'cancel-btn-active': isActive}" 
+                    icon="mdi-close-circle"
+                    color="var(--icon-color)" 
+                    variant="plain" 
+                    @click="isActive = false"
+                    >
+                    </v-btn>
                     <!-- Смена темы -->
                     <v-switch class="h-100 mr-2" color="var(--switch-color)" @update:model-value="(e) => console.log(e)">
                         <template #prepend>
@@ -16,10 +37,22 @@
                         </template>
                     </v-switch>
                     <!-- Значок корзины -->
-                    <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-cart-outline" density="comfortable">
+                    <v-btn 
+                    class="basket-btn" 
+                    color="var(--icon-color)" 
+                    variant="outlined" 
+                    icon="mdi-cart-outline" 
+                    density="comfortable">
                     </v-btn>
                     <!-- Значок профиля -->
-                    <v-btn color="var(--icon-color)" variant="outlined" icon="mdi-account" density="comfortable" @click="goToAuthForm">
+                    <v-btn 
+                    class="profile-btn" 
+                    color="var(--icon-color)" 
+                    variant="outlined" 
+                    icon="mdi-account" 
+                    density="comfortable" 
+                    @click="goToAuthForm"
+                    >
                     </v-btn>
                 </div>
             </div>
@@ -56,9 +89,12 @@ import { ref, computed } from 'vue';
 import useMainStore from '@/store/index.js';
 import { useRouter, useRoute } from 'vue-router';
 import { searchApts } from '@/api/aptApi';
+import contextMenuComp from '@/components/UI/contextMenuComp.vue';
 
 // ##############################  DATA  ##############################
 const searchQuery = ref('');
+const menuItems = ref(['Поиск', 'Авторизация', 'Корзина']);
+const isActive = ref(false);
 
 // ##############################  ComposaBles  ##############################
 const router = useRouter();
@@ -76,10 +112,21 @@ const goToAuthForm = () => {
 
 async function selectApt(selectedTypeApt) {
     await router.push({ name: 'selectedTypeApt', params: { selectedTypeApt }, query: { ...route.query } });
+    console.log(selectedTypeApt, {...route.params})
 }
 async function handlerSearchApts() {
     store.apartments = await searchApts(bundleSearchParams.value);
     console.log(store.apartments)
+}
+function changeContextMenuItem(index) {
+    console.log(index)
+    if(index == 0) {
+            isActive.value = true;
+            console.log(isActive.value)
+    }
+    if(index == 1) {
+        goToAuthForm();
+    }
 }
 </script>
 
@@ -168,56 +215,28 @@ async function handlerSearchApts() {
     border-radius: var(--basic-radius);
     box-shadow: var(--basic-shadow);
 }
-
-/* ########################  MEDIA  ########################## */
-
-/* #####################   940px   #####################*/
-@media (max-width: 940px) {
-    .search-block {
-        width: 35% !important;
-    }
-    .header-top {
-        justify-content: space-between !important;
-    }
+.search-block {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+.search-block-active {
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+.burger-btn-media-active {
+    display: none;
+}
+.burger-btn {
+    display: none;
+}
+.cancel-btn {
+    display: none;
+}
+.cancel-btn-active {
+    width: 5%;
 }
 
-/* #####################   780px   #####################*/
-@media (max-width: 780px) {
-    .logo {
-        width: max-content !important;
-        font-size: 1.5rem;
-    }
-}
-/* #####################   690px   #####################*/
-@media (max-width: 690px) {
-    .action {
-        width: 140px !important;
-        gap: 3px !important;
-    }
-}
-/* #####################   520px   #####################*/
-@media (max-width: 520px) {
-    .search-block {
-        width: 25% !important;
-    }
-    .navigation {
-        display: none !important;
-    }
-    .header {
-        height: max-content !important;
-    }
-    .header-top {
-        height: 100% !important;
-    }
-}
-/* #####################   460px   #####################*/
-@media (max-width: 460px) {
-    .logo {
-        position: absolute !important;
-        top: 0;
-        left: 0;
-    }
-    .header-top {
-    }
-}
+
 </style>

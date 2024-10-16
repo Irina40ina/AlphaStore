@@ -3,8 +3,7 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
-import "@/styles/main.css";
-import '@/styles/media/index.css';
+// import '@/styles/media/index.css';
 
 // Vuetify
 import "vuetify/styles";
@@ -20,6 +19,7 @@ const vuetify = createVuetify({
   directives: vuetifyDirectives,
 });
 
+import "./styles/main.css";
 const app = createApp(App);
 
 directives.forEach((el) => {

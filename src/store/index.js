@@ -10,11 +10,20 @@ export default defineStore('mainStore', () => {
         'komnata': ['Комната'],
         'module': ['Модуль'],
     }
-    const apartments = ref([]);
 
+    const apartments = ref([]);
+    const typesApt = ref([
+        {key: 'kvartira', value: 'Квартира'}, 
+        {key: 'kottedg', value: 'Коттедж'}, 
+        {key: 'dom', value: 'Дом'}, 
+        {key: 'hostel', value: 'Хостел'}, 
+        {key: 'komnata', value: 'Комната'}, 
+        {key: 'module', value: 'Модуль'}, 
+    ]);
     
     return {
         selectedAptMatches,
         apartments,
+        typesApt,
     }
 });

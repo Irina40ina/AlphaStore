@@ -1,0 +1,60 @@
+/* #####################   965px   #####################*/
+@media (max-width: 965px) {
+    .main-container {
+        grid-template-columns: 25% 1fr !important;
+    }
+    
+}
+/* #####################   800px   #####################*/
+@media (max-width: 800px) {
+    h4 {
+        font-size: .9rem !important;
+    }
+    .v-label {
+        font-size: .8rem !important;
+    }
+    .filter-title {
+        font-size: 1.3rem !important;
+    }
+}
+/* #####################   965px   #####################*/
+@media (max-width: 730px) {
+    .main-container {
+        grid-template-columns: 28% 1fr !important;
+    }
+}
+ /* #####################   625px   #####################*/
+ @media (max-width: 625px) {
+    .main-container {
+        grid-template-columns: 30% 1fr !important;
+    }
+}
+ /* #####################   585px   #####################*/
+ @media (max-width: 585px) {
+    .main-container {
+        grid-template-columns: 32% 1fr !important;
+    }
+    .filter-title {
+        font-size: 1rem !important;
+    }
+    h4 {
+        font-size: .8rem !important;
+    }
+    .v-label {
+        font-size: .7rem !important;
+    }
+}
+/* #####################   520px   #####################*/
+@media (max-width: 520px) {
+    .type-apt-filter {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+}
+ /* #####################   430px   #####################*/
+ @media (max-width: 430px) {
+    .main-container {
+        grid-template-columns: 35% 1fr !important;
+    }
+}

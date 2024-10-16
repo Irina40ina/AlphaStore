@@ -1,6 +1,8 @@
 <template>
     <div class="main-filter-container">
         <h2 class="filter-title">Фильтры</h2>
+        <!-- Тип недвижимости -->
+        <selectTypeAptComp :lable="'Выберите тип недвижимости'" :items="store.typesApt" v-model="selectedTypeApt"></selectTypeAptComp>
         <!-- Площадь -->
         <aptAreaComp v-model="filterData.aptArea"></aptAreaComp>
         <!-- Кол-во комнат -->
@@ -46,12 +48,15 @@ import floorComp from './floorComp.vue';
 import radioComp from './radioComp.vue';
 import costComp from './costComp.vue';
 import selectComp from './selectComp.vue';
+import selectTypeAptComp from './selectTypeAptComp.vue';
 import useLocationData from '@/composables/locationComposable';
 import { useRouter, useRoute } from 'vue-router';
+import useMainStore from '@/store/index.js';
 
 
 const router = useRouter();
 const route = useRoute();
+const store = useMainStore();
 
 
 // ##############################  DATA  ##############################
@@ -70,9 +75,8 @@ const filterData = reactive({
     city: '',
 });
 
-// const locations = ref([]);
 const citiesDisabled = ref(false);
-
+const selectedTypeApt = ref('');
 
 // ##############################  COMPOSABLES  ##############################
 const { countries, cities } = useLocationData(filterData);
@@ -81,7 +85,12 @@ const { countries, cities } = useLocationData(filterData);
 // ##############################  METHODS  ##############################
 // Для проверки
 const saveChanges = () => {
-    router.push({ name: 'selectedTypeApt', params: { ...route.params }, query: { ...filterData } })
+    if(selectedTypeApt.value === null) {
+        router.push({ name: 'selectedTypeApt', params: { ...route.params }, query: { ...filterData } })
+    }
+    else {
+        router.push({ name: 'selectedTypeApt', params: { selectedTypeApt: selectedTypeApt.value } , query: { ...filterData } })
+    }
 }
 
 </script>
@@ -103,4 +112,5 @@ const saveChanges = () => {
     color: var(--fg-color);
     font-family: var(--basic-font);
 }
+
 </style>

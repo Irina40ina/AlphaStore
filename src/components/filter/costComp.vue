@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-md-column w-100">
+    <div class="d-flex flex-column w-100">
         <h4 class="cost-title">Стоимость (руб.)</h4>
         <v-range-slider 
         density="compact" 

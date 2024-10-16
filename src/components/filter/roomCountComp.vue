@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-md-column w-100">
+    <div class="d-flex flex-column w-100">
         <h4 class="room-count-title">Количество комнат</h4>
 
         <v-checkbox 

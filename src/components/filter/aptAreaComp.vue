@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-md-column w-100">
+    <div class="d-flex flex-column flex-md-column w-100">
         <h4 class="apt-area-title">Общая площадь м<sup>2</sup></h4>
         <v-range-slider 
         density="compact" 

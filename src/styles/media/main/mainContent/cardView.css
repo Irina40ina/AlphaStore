@@ -1,0 +1,14 @@
+/* #####################   1015px   #####################*/
+@media (max-width: 1015px) {
+    .card-title {
+        font-size: 1rem !important;
+        
+    }
+}
+/* #####################   880px   #####################*/
+@media (max-width: 880px) {
+    .card-title {
+        font-size: .8rem !important;
+        
+    }
+}

@@ -4,4 +4,89 @@
     .search-block {
         width: 35% !important;
     }
+    .header-top {
+        justify-content: space-between !important;
+    }
+}
+
+/* #####################   780px   #####################*/
+@media (max-width: 780px) {
+    .logo {
+        width: max-content !important;
+        font-size: 1.5rem;
+    }
+}
+/* #####################   690px   #####################*/
+@media (max-width: 690px) {
+    .action {
+        width: 140px !important;
+        gap: 3px !important;
+    }
+}
+/* #####################   520px   #####################*/
+@media (max-width: 520px) {
+    /* .search-block {
+        width: 30% !important;
+    } */
+    .navigation {
+        display: none !important;
+    }
+    .header {
+        height: max-content !important;
+    }
+    .header-top {
+        height: 100% !important;
+    }
+    .v-btn--size-default {
+        --v-btn-height: 30px !important;
+    }
+    .v-field--appended {
+        padding-inline-end: 6px !important;
+    }
+    .v-icon {
+        --v-icon-size-multiplier: .8 !important;
+    }
+    .v-switch__thumb {
+        height: 17px !important;
+        width: 17px !important;
+    }
+    .v-switch__track {
+        height: 11px !important;
+        min-width: 30px !important;
+    }
+    .v-selection-control--density-default {
+    --v-selection-control-size: 30px !important;
+    }
+    .logo {
+        font-size: 1.3rem !important;
+    }
+}
+/* #####################   460px   #####################*/
+@media (max-width: 460px) {
+    .logo {
+        position: absolute !important;
+        top: 0;
+        left: .3rem !important;
+    }
+    .search-block {
+        display: none !important;
+    }
+    .header-top {
+        justify-content: end !important;
+    }
+    .basket-btn {
+        display: none !important;
+    }
+    .profile-btn {
+        display: none !important;
+    }
+    .burger-btn-media-active {
+        display: block !important;
+        position: absolute;
+        bottom: .1rem !important;
+        left: .3rem !important;
+    }
+    .v-btn--variant-outlined {
+        border: none;
+    }
 }
