@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, defineEmits } from 'vue';
 import aptAreaComp from './aptAreaComp.vue';
 import roomCountComp from './roomCountComp.vue';
 import floorComp from './floorComp.vue';
@@ -77,7 +77,8 @@ const filterData = reactive({
 
 const citiesDisabled = ref(false);
 const selectedTypeApt = ref('');
-
+// ##############################  EMITS  ##############################
+const emits = defineEmits(['closeFilter'])
 // ##############################  COMPOSABLES  ##############################
 const { countries, cities } = useLocationData(filterData);
 
@@ -91,6 +92,7 @@ const saveChanges = () => {
     else {
         router.push({ name: 'selectedTypeApt', params: { selectedTypeApt: selectedTypeApt.value } , query: { ...filterData } })
     }
+    emits('closeFilter');
 }
 
 </script>

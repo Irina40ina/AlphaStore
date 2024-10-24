@@ -71,8 +71,9 @@
         </header>
 
         <!-- БОКОВАЯ ПАНЕЛЬ -->
-        <aside class="aside">
-            <filterComp></filterComp>
+        <aside 
+        :class="{'aside': !phoneMode, 'aside-phone-mode': phoneMode}">
+            <filterComp @close-filter="phoneMode = false"></filterComp>
         </aside>
 
         <!-- ОСНОВНОЙ КОНТЕНТ -->
@@ -93,8 +94,9 @@ import contextMenuComp from '@/components/UI/contextMenuComp.vue';
 
 // ##############################  DATA  ##############################
 const searchQuery = ref('');
-const menuItems = ref(['Поиск', 'Авторизация', 'Корзина']);
+const menuItems = ref(['Поиск', 'Авторизация', 'Корзина', 'Фильтры']);
 const isActive = ref(false);
+const phoneMode = ref(false);
 
 // ##############################  ComposaBles  ##############################
 const router = useRouter();
@@ -127,6 +129,9 @@ function changeContextMenuItem(index) {
     if(index == 1) {
         goToAuthForm();
     }
+    if (index == 3) {
+        phoneMode.value = true;
+    }
 }
 </script>
 
@@ -147,7 +152,7 @@ function changeContextMenuItem(index) {
         "header header"
         "aside main";
     grid-template-rows: auto 1fr;
-    grid-template-columns: 20% 1fr;
+    grid-template-columns: 25% 1fr;
     gap: 1rem;
     padding: 0.5rem;
 }
@@ -205,6 +210,11 @@ function changeContextMenuItem(index) {
 }
 .aside {
     grid-area: aside;
+    background-color: var(--basic-bg);
+    border-radius: var(--basic-radius);
+    box-shadow: var(--basic-shadow);
+}
+.aside-phone-mode {
     background-color: var(--basic-bg);
     border-radius: var(--basic-radius);
     box-shadow: var(--basic-shadow);

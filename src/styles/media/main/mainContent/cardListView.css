@@ -19,36 +19,24 @@
 /* #####################   800px   #####################*/
 @media (max-width: 800px) {
     .product-list {
-        grid-template-columns: repeat(auto-fit, 250px) !important;
-    }
-}
-/* #####################   730px   #####################*/
-@media (max-width: 730px) {
-    .product-list {
         grid-template-columns: repeat(auto-fit, 200px) !important;
     }
 }
-/* #####################   625px   #####################*/
-@media (max-width: 625px) {
+/* #####################   660px   #####################*/
+@media (max-width: 660px) {
     .product-list {
-        grid-template-columns: repeat(auto-fit, 180px) !important;
+        grid-template-columns: repeat(auto-fit, 280px) !important;
     }
 }
 /* #####################   585px   #####################*/
 @media (max-width: 585px) {
     .product-list {
-        grid-template-columns: repeat(auto-fit, 300px) !important;
+        grid-template-columns: repeat(auto-fit, 370px) !important;
     }
 }
-/* #####################   500px   #####################*/
-@media (max-width: 500px) {
-    .product-list {
-        grid-template-columns: repeat(auto-fit, 250px) !important;
-    }
-}
-/* #####################   430px   #####################*/
+/* #####################   420px   #####################*/
 @media (max-width: 430px) {
     .product-list {
-        grid-template-columns: repeat(auto-fit, 200px) !important;
+        grid-template-columns: repeat(auto-fit, 300px) !important;
     }
 }

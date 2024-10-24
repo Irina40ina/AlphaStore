@@ -23,11 +23,8 @@
         gap: 3px !important;
     }
 }
-/* #####################   520px   #####################*/
-@media (max-width: 520px) {
-    /* .search-block {
-        width: 30% !important;
-    } */
+/* #####################   585px   #####################*/
+@media (max-width: 585px) {
     .navigation {
         display: none !important;
     }
@@ -60,9 +57,12 @@
     .logo {
         font-size: 1.3rem !important;
     }
-}
-/* #####################   460px   #####################*/
-@media (max-width: 460px) {
+    .burger-btn-media-active {
+        display: block !important;
+        position: absolute;
+        bottom: .1rem !important;
+        left: .3rem !important;
+    }
     .logo {
         position: absolute !important;
         top: 0;
@@ -79,12 +79,6 @@
     }
     .profile-btn {
         display: none !important;
-    }
-    .burger-btn-media-active {
-        display: block !important;
-        position: absolute;
-        bottom: .1rem !important;
-        left: .3rem !important;
     }
     .v-btn--variant-outlined {
         border: none;
